@@ -31,18 +31,8 @@ public class UserController {
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
     }
-//
+
 
 }
 
-// Functions to implement
-// 1. Get all posts of the user
-// 2. Users university post list
-// 3. University lost and found (based on the year of the user).
-// 4. search for company
-// 5.
-// 6.
-// 7.
-// 8.
-// 9.
-// 10.
+
