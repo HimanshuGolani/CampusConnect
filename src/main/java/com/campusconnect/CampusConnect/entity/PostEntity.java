@@ -37,7 +37,7 @@ public class PostEntity {
 
      private COMPANY_NAME_TAG companySpecificName_TAG;
 
-    private Set<COMPANY_NAME_TAG> companySpecifiName_TAGS_List;
+    private Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List;
 
     @CreatedDate
     private Date createdAt;

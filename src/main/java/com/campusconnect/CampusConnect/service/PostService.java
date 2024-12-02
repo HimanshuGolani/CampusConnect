@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,67 +20,58 @@ public class PostService {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-
     private final UniversityRepository universityRepository;
 
-    public PostService(UserRepository userRepository, PostRepository postRepository , UniversityRepository universityRepository) {
+    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
-        this.universityRepository=universityRepository;
+        this.universityRepository = universityRepository;
     }
 
-    // Creating post
+    // Creating a post
     @Transactional
     public void createPost(ObjectId userId, PostDTO postData) {
         try {
-            System.out.println("The user id Is : " + userId);
+            System.out.println("The user id is : " + userId);
             Optional<UserEntity> userOpt = userRepository.findById(userId);
             if (userOpt.isPresent()) {
                 UserEntity user = userOpt.get();
-                System.out.println("user found" + user.toString());
+                System.out.println("User found: " + user);
+
                 // Convert DTO to Entity
                 PostEntity post = DtoToObjMapping(postData);
-                System.out.println("post created"+post);
+                System.out.println("Post created: " + post);
 
                 // Set references
                 post.setUsersId(userId);
                 post.setUniversityId(user.getUniversityId());
 
                 System.out.println("Post universityId is saved and userId is saved to.");
-                System.out.println(post.toString());
+                System.out.println(post);
 
-                Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(user.getUniversityId());
-
-//                Saving the post.
+                // Save post
                 postRepository.save(post);
 
-                 if(universityEntityOptional.isPresent()){
-                     System.out.println("University found");
-                     UniversityEntity university = universityEntityOptional.get();
-                     System.out.println(university.toString());
-                     university.getUniversityRelatedPosts().add(post);
-                     universityRepository.save(university);
-                     System.out.println("Updated university");
-                     System.out.println(university.toString());
-                 }
-                 else {
-                     System.out.println("University not found");
-                     throw new RuntimeException("University not found.");
-                 }
+                Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(user.getUniversityId());
+                if (universityEntityOptional.isPresent()) {
+                    System.out.println("University found");
+                    UniversityEntity university = universityEntityOptional.get();
+                    university.getUniversityRelatedPosts().add(post);
+                    universityRepository.save(university);
+                    System.out.println("Updated university: " + university);
+                } else {
+                    throw new RuntimeException("University not found.");
+                }
 
-                System.out.println("same error occured when saving the posts ");
-
-
-                System.out.println(post.toString());
-
+                // Add post to user's list
                 user.getPosts().add(post);
                 userRepository.save(user);
+
             } else {
-                System.out.println("user not found");
                 throw new RuntimeException("User not found.");
             }
         } catch (Exception e) {
-            System.out.println("Some error occured"+e.getMessage());
+            System.out.println("Error occurred: " + e.getMessage());
             throw new RuntimeException("An error occurred while saving the post.", e);
         }
     }
@@ -105,6 +97,8 @@ public class PostService {
             post.setTitle(updatedPostData.getTitle());
             post.setContent(updatedPostData.getContent());
             post.setImageUri(updatedPostData.getImageUri());
+            post.setCompanySpecificName_TAG(updatedPostData.getCompanySpecificName_TAG());
+            post.setCompanySpecificName_TAGS_List(updatedPostData.getCompanySpecificName_TAGS_List());
 
             // Save updated post
             postRepository.save(post);
@@ -121,10 +115,10 @@ public class PostService {
             if (postOpt.isPresent()) {
                 PostEntity post = postOpt.get();
 
-                // Delete post from the repository
+                // Delete post from repository
                 postRepository.delete(post);
 
-                // Optionally, you could remove the post reference from the user as well
+                // Remove reference from the user
                 Optional<UserEntity> userOpt = userRepository.findById(post.getUsersId());
                 if (userOpt.isPresent()) {
                     UserEntity user = userOpt.get();
@@ -139,18 +133,38 @@ public class PostService {
         }
     }
 
-    // Helper method to map DTO to Entity
-    private PostEntity DtoToObjMapping(PostDTO postDTO) {
-        PostEntity post = new PostEntity();
-        post.setUserName(postDTO.getUserName());
-         post.setTitle(postDTO.getTitle());
-        post.setContent(postDTO.getContent());
-        post.setImageUri(postDTO.getImageUri());
-        post.setCreatedAt(new Date());
-        return post;
+    // Search posts by title
+    public List<PostEntity> searchPostsByTitle(String title) {
+        return postRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    // Search posts by content (description)
+    public List<PostEntity> searchPostsByContent(String content) {
+        return postRepository.findByContentContainingIgnoreCase(content);
     }
 
 
 
+    // Search posts by tag
+    public List<PostEntity> searchPostsByTag(String tag) {
+        return postRepository.findByCompanySpecificName_TAGS_ListContainingIgnoreCase(tag);
+    }
 
+    // Search posts by text (title, content, etc.)
+    public List<PostEntity> searchPostsByText(String searchText) {
+        return postRepository.searchByText(searchText);
+    }
+
+    // Helper method to map DTO to Entity
+    private PostEntity DtoToObjMapping(PostDTO postDTO) {
+        PostEntity post = new PostEntity();
+        post.setUserName(postDTO.getUserName());
+        post.setTitle(postDTO.getTitle());
+        post.setContent(postDTO.getContent());
+        post.setImageUri(postDTO.getImageUri());
+        post.setCompanySpecificName_TAG(postDTO.getCompanySpecificName_TAG());
+        post.setCompanySpecificName_TAGS_List(postDTO.getCompanySpecificName_TAGS_List());
+        post.setCreatedAt(new Date());
+        return post;
+    }
 }
