@@ -2,6 +2,8 @@ package com.campusconnect.CampusConnect.chat.service;
 
 import com.campusconnect.CampusConnect.chat.entity.ChatRoom;
 import com.campusconnect.CampusConnect.chat.repository.ChatRoomRepository;
+import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,33 +16,34 @@ public class ChatRoomService {
     @Autowired
     private ChatRoomRepository chatRoomRepository;
 
-    public Optional<ObjectId> getChatId(
-            ObjectId senderId, ObjectId recipientId, boolean createIfNotExist) {
+    @Autowired
+    private UserRepository userRepository;
 
-        return chatRoomRepository
-                .findBySenderIdAndRecipientId(senderId, recipientId)
-                .map(ChatRoom::getChatId)
-                .or(() -> {
-                    if (!createIfNotExist) {
-                        return Optional.empty();
-                    }
+    public Optional<ObjectId> getChatId(ObjectId senderId, ObjectId recipientId, boolean createIfNotExist) {
+        Optional<UserEntity> sender = userRepository.findById(senderId);
+        Optional<UserEntity> recipient = userRepository.findById(recipientId);
 
-                    ChatRoom senderRecipient = ChatRoom.builder()
-                            .chatId(new ObjectId()) // Auto-generate ObjectId for chatId
-                            .senderId(senderId)
-                            .recipientId(recipientId)
-                            .build();
+        if (sender.isPresent() && recipient.isPresent()) {
+            if (sender.get().getAllChats().containsKey(recipientId)) {
+                return Optional.of(sender.get().getAllChats().get(recipientId));
+            }
 
-                    ChatRoom recipientSender = ChatRoom.builder()
-                            .chatId(senderRecipient.getChatId()) // Use the same chatId
-                            .senderId(recipientId)
-                            .recipientId(senderId)
-                            .build();
+            if (createIfNotExist) {
+                ChatRoom chatRoom = new ChatRoom();
+                chatRoom.setSenderId(senderId);
+                chatRoom.setRecipientId(recipientId);
+                chatRoom = chatRoomRepository.save(chatRoom);
 
-                    chatRoomRepository.save(senderRecipient);
-                    chatRoomRepository.save(recipientSender);
+                sender.get().getAllChats().put(recipientId, chatRoom.getId());
+                recipient.get().getAllChats().put(senderId, chatRoom.getId());
 
-                    return Optional.of(senderRecipient.getChatId());
-                });
+                userRepository.save(sender.get());
+                userRepository.save(recipient.get());
+
+                return Optional.of(chatRoom.getId());
+            }
+        }
+
+        return Optional.empty();
     }
 }

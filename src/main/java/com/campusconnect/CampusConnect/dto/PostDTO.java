@@ -1,10 +1,14 @@
 package com.campusconnect.CampusConnect.dto;
 
+import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
+
+import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -25,6 +29,20 @@ public class PostDTO {
 
     private String imageUri;
 
+    private COMPANY_NAME_TAG companySpecificName_TAG;
+
+    private Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List;
+
+    public PostDTO(ObjectId id, String title, ObjectId userId, String content, String userName, String imageUri, Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List, COMPANY_NAME_TAG companySpecificName_TAG) {
+        this.id = id;
+        this.title = title;
+        this.userId = userId;
+        this.content = content;
+        this.userName = userName;
+        this.imageUri = imageUri;
+        this.companySpecificName_TAGS_List = companySpecificName_TAGS_List;
+        this.companySpecificName_TAG = companySpecificName_TAG;
+    }
 
     public PostDTO(ObjectId id, ObjectId usersId, String userName, String title, String content, String imageUri) {
         this.id = id;
@@ -34,6 +52,7 @@ public class PostDTO {
         this.content=content;
         this.imageUri=imageUri;
     }
+
 }
 
 

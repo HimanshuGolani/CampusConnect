@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 @Document(collection = "Users")
@@ -56,8 +57,8 @@ public class UserEntity {
     @DBRef
     private List<PostEntity> posts = new ArrayList<>();
 
-//    @DBRef
-//    private Map<>
+    @DBRef
+    private Map<ObjectId, ObjectId> allChats = new TreeMap<>();
 
     @Override
     public String toString() {
