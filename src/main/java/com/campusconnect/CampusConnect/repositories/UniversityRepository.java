@@ -17,5 +17,4 @@ public interface UniversityRepository extends MongoRepository<UniversityEntity, 
     @Query(value = "{}", fields = "{ '_id' : 1 , 'nameOfUniversity' : 1 }")
     List<UniversityNameListDTO> findAllNamesOfUniversity();
 
-
 }

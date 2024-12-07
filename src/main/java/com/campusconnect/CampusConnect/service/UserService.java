@@ -1,43 +1,46 @@
 package com.campusconnect.CampusConnect.service;
+import com.campusconnect.CampusConnect.dto.DtoHelperClass;
 import com.campusconnect.CampusConnect.dto.PostDTO;
-import com.campusconnect.CampusConnect.entity.PostEntity;
+import com.campusconnect.CampusConnect.dto.UserDTO;
+import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final DtoHelperClass dtoHelper;
+    private final UniversityRepository universityRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository , DtoHelperClass dtoHelper ,UniversityRepository universityRepository ){
         this.userRepository = userRepository;
+        this.dtoHelper = dtoHelper;
+        this.universityRepository=universityRepository;
     }
 
     public List<PostDTO> getAllPosts(ObjectId userId) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        return user.getPosts().stream()
-                .map(this::PostObjToDTOMapping)
+         return user.getPosts().stream()
+                .map(dtoHelper::PostObjToDTOMapping)
                 .collect(Collectors.toList());
     }
 
-    private PostDTO PostObjToDTOMapping(PostEntity postData) {
-        return new PostDTO(
-                postData.getId(),
-                postData.getUsersId(),
-                postData.getUserName(),
-                postData.getTitle(),
-                postData.getContent(),
-                postData.getImageUri());
+
+    public UserDTO getUserProfile(ObjectId userId){
+        UserEntity user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("User not found"));
+        return dtoHelper.mapToUserDTO(user);
     }
+
+
+
+
 
 }

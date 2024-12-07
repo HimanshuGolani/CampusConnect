@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class TransactionalConfig {
+
     @Bean
     public PlatformTransactionManager transactionManager(MongoDatabaseFactory databaseFactory){
         return new MongoTransactionManager(databaseFactory);
     }
+
 }

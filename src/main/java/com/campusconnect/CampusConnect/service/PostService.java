@@ -1,5 +1,6 @@
 package com.campusconnect.CampusConnect.service;
 
+import com.campusconnect.CampusConnect.dto.DtoHelperClass;
 import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
@@ -11,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +23,13 @@ public class PostService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final UniversityRepository universityRepository;
+    private final DtoHelperClass dtoHelper;
 
-    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository) {
+    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository,DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.universityRepository = universityRepository;
+        this.dtoHelper=dtoHelper;
     }
 
     // Creating a post
@@ -36,29 +40,22 @@ public class PostService {
             Optional<UserEntity> userOpt = userRepository.findById(userId);
             if (userOpt.isPresent()) {
                 UserEntity user = userOpt.get();
-                System.out.println("User found: " + user);
 
                 // Convert DTO to Entity
-                PostEntity post = DtoToObjMapping(postData);
-                System.out.println("Post created: " + post);
+                PostEntity post = dtoHelper.PostDtoToObjectMapping(postData);
 
                 // Set references
                 post.setUsersId(userId);
                 post.setUniversityId(user.getUniversityId());
-
-                System.out.println("Post universityId is saved and userId is saved to.");
-                System.out.println(post);
 
                 // Save post
                 postRepository.save(post);
 
                 Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(user.getUniversityId());
                 if (universityEntityOptional.isPresent()) {
-                    System.out.println("University found");
                     UniversityEntity university = universityEntityOptional.get();
                     university.getUniversityRelatedPosts().add(post);
                     universityRepository.save(university);
-                    System.out.println("Updated university: " + university);
                 } else {
                     throw new RuntimeException("University not found.");
                 }
@@ -66,7 +63,6 @@ public class PostService {
                 // Add post to user's list
                 user.getPosts().add(post);
                 userRepository.save(user);
-
             } else {
                 throw new RuntimeException("User not found.");
             }
@@ -97,7 +93,7 @@ public class PostService {
             post.setTitle(updatedPostData.getTitle());
             post.setContent(updatedPostData.getContent());
             post.setImageUri(updatedPostData.getImageUri());
-            post.setCompanySpecificName_TAG(updatedPostData.getCompanySpecificName_TAG());
+            post.setCompanySpecificNameTAG(updatedPostData.getCompanySpecificName_TAG());
             post.setCompanySpecificName_TAGS_List(updatedPostData.getCompanySpecificName_TAGS_List());
 
             // Save updated post
@@ -147,7 +143,7 @@ public class PostService {
 
     // Search posts by tag
     public List<PostEntity> searchPostsByTag(String tag) {
-        return postRepository.findByCompanySpecificName_TAGS_ListContainingIgnoreCase(tag);
+        return postRepository.findByCompanySpecificNameTAG_ListContainingIgnoreCase(tag);
     }
 
     // Search posts by text (title, content, etc.)
@@ -155,16 +151,14 @@ public class PostService {
         return postRepository.searchByText(searchText);
     }
 
-    // Helper method to map DTO to Entity
-    private PostEntity DtoToObjMapping(PostDTO postDTO) {
-        PostEntity post = new PostEntity();
-        post.setUserName(postDTO.getUserName());
-        post.setTitle(postDTO.getTitle());
-        post.setContent(postDTO.getContent());
-        post.setImageUri(postDTO.getImageUri());
-        post.setCompanySpecificName_TAG(postDTO.getCompanySpecificName_TAG());
-        post.setCompanySpecificName_TAGS_List(postDTO.getCompanySpecificName_TAGS_List());
-        post.setCreatedAt(new Date());
-        return post;
+    public List<PostDTO> getAllPostsForUniversity(ObjectId universityId, int page, int pageSize) {
+        return universityRepository.findById(universityId)
+                .map(university -> university.getUniversityRelatedPosts().stream()
+                        .skip((long) (page - 1) * pageSize)
+                        .limit(pageSize)
+                        .map(dtoHelper::PostObjToDTOMapping)
+                        .toList())
+                .orElse(Collections.emptyList());
     }
+
 }

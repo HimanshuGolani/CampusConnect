@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.CompanyDTO;
+import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UniversityNameListDTO;
 import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.service.UniversityService;
@@ -20,7 +21,7 @@ public class UniversityController {
         this.universityService = universityService;
     }
 
-    @PostMapping("/universityList")
+    @GetMapping("/universityList")
         public ResponseEntity<?> listOfUniversity(){
       try{
           List<UniversityNameListDTO> universityList = universityService.getAllUniversities();
@@ -42,7 +43,7 @@ public class UniversityController {
     }
 
     @PostMapping("/createCompany/{universityId}")
-    public ResponseEntity<?> createCompany(@Valid @RequestBody CompanyDTO companyDetails , @PathVariable ObjectId universityId ){
+    public ResponseEntity<?> createCompany(@RequestBody CompanyDTO companyDetails ,@Valid @PathVariable ObjectId universityId ){
         try{
             CompanyDTO savedEntity = universityService.createCompany(universityId,companyDetails);
             return new ResponseEntity<>(savedEntity , HttpStatus.CREATED);
@@ -52,11 +53,11 @@ public class UniversityController {
         }
     }
 
-    @PostMapping("/getListOfCompanies/{universityId}")
-    public ResponseEntity<?> getAllCompaniesVisited(@PathVariable ObjectId universityId){
+    @GetMapping("/getListOfCompanies/{universityId}")
+    public ResponseEntity<?> getAllCompaniesVisited(@Valid @PathVariable ObjectId universityId){
         try{
             List<CompanyDTO> companies = universityService.findAllCompaniesVisiting(universityId);
-            return new ResponseEntity<>(companies,HttpStatus.FOUND);
+            return new ResponseEntity<>(companies,HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
@@ -72,6 +73,8 @@ public class UniversityController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 
 

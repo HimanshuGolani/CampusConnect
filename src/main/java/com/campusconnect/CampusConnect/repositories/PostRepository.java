@@ -19,7 +19,8 @@ public interface PostRepository extends MongoRepository<PostEntity, ObjectId> {
 
 
     // Search posts by tags (tag matching in the array)
-    List<PostEntity> findByCompanySpecificName_TAGS_ListContainingIgnoreCase(String tag);
+    @Query("{ 'companySpecificNameTAG': { $regex: ?0, $options: 'i' } }")
+    List<PostEntity> findByCompanySpecificNameTAG_ListContainingIgnoreCase(String tag);
 
     // Text search across multiple fields (title, content, etc.)
     @Query("{'$text': {'$search': ?0}}")

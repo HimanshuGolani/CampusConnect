@@ -130,6 +130,17 @@ public class PostController {
     }
 
 
+    @GetMapping("/getAllUniversityPosts/{universityId}/{page}/{pageSize}")
+    public ResponseEntity<?> getAllUniversityRelatedPosts(@Valid @PathVariable ObjectId universityId ,@PathVariable int page ,@PathVariable int pageSize){
+        try{
+            List<PostDTO> posts = postService.getAllPostsForUniversity(universityId,page,pageSize);
+            return new ResponseEntity<>(posts,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e,HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
 }

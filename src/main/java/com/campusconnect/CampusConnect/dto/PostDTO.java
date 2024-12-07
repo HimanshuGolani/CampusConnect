@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.dto;
 
 import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,11 +17,12 @@ import java.util.Set;
 @AllArgsConstructor
 public class PostDTO {
 
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId id;
 
     @NotNull
     private String title;
-
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId userId;
 
     private String userName;

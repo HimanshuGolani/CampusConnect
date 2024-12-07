@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Campus-Connect
+  data:
+    mongodb:
+      uri: mongodb+srv://campusconnectteamcommon:zOrDZ5F6yUxR98kU@campusconnect.d2vm8.mongodb.net/CampusConnect?retryWrites=true&w=majority&appName=CampusConnect
+      auto-index-creation: true
+
+
+server:
+  port: 8080

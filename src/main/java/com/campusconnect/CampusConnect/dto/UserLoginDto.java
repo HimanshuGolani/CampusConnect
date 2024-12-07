@@ -1,27 +1,28 @@
 package com.campusconnect.CampusConnect.dto;
-
-import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
-public class CompanyDTO {
+public class UserLoginDto {
 
+    private String userName;
+
+    // Use Jackson's @JsonSerialize annotation to ensure it's serialized as a string
     @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId id;
 
-    @NotNull(message = "Company name cannot be empty")
-    private String companyName;
+    private boolean loginStatus;
 
-    @NotNull(message = "university id cannot be empty")
     @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId universityId;
 
-    private List<UserEntity> selectedStudents = new ArrayList<>();
+    public UserLoginDto() {
+    }
 
+    public UserLoginDto(String userName, ObjectId id,ObjectId universityId) {
+        this.userName = userName;
+        this.id = id;
+        this.universityId=universityId;
+    }
 }

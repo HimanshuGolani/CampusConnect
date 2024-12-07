@@ -1,7 +1,5 @@
 package com.campusconnect.CampusConnect.controller;
-import com.campusconnect.CampusConnect.dto.LoginDTO;
-import com.campusconnect.CampusConnect.dto.UniversityDTO;
-import com.campusconnect.CampusConnect.dto.UserDTO;
+import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -33,20 +31,20 @@ public class AuthController {
     // User login
     @PostMapping("/user/login")
     public ResponseEntity<?> userLogin(@Valid @RequestBody LoginDTO userData) {
-        boolean isLoggedIn = authService.userLogin(userData);
-        if (isLoggedIn) {
-            return ResponseEntity.status(202).body("User successfully logged in");
+        UserLoginDto data = authService.userLogin(userData);
+        if (data.isLoginStatus()) {
+            return ResponseEntity.status(202).body(data);
         } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.status(401).body(data);
         }
     }
 
     // University login
     @PostMapping("/university/login")
     public ResponseEntity<?> universityLogin(@Valid @RequestBody LoginDTO universityData) {
-        boolean isLoggedIn = authService.universityLogin(universityData);
-        if (isLoggedIn) {
-            return ResponseEntity.status(202).body("University successfully logged in");
+        UniversityLoginDto data = authService.universityLogin(universityData);
+        if (data.isLogin_Status()) {
+            return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
         } else {
             return ResponseEntity.status(401).body("Invalid email or password");
         }

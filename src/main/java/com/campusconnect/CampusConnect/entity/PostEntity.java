@@ -1,4 +1,5 @@
 package com.campusconnect.CampusConnect.entity;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -19,6 +20,7 @@ public class PostEntity {
 
     @Indexed
     @NotNull
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId usersId;
 
     @NotNull
@@ -27,6 +29,7 @@ public class PostEntity {
     private String email;
 
     @NotNull
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId universityId;
 
     private String title;
@@ -35,7 +38,7 @@ public class PostEntity {
     private String imageUri;
 
 
-     private COMPANY_NAME_TAG companySpecificName_TAG;
+     private COMPANY_NAME_TAG companySpecificNameTAG;
 
     private Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List;
 

@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.PostDTO;
+import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class UserController {
 
 
 //  get all the post feed
-    @PostMapping("/myPosts/{userId}")
+    @GetMapping("/myPosts/{userId}")
     public ResponseEntity<?> getAllUsersPosts(@PathVariable ObjectId userId){
         try{
             List<PostDTO> usersPost = userService.getAllPosts(userId);
@@ -31,6 +32,18 @@ public class UserController {
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/myProfile/{userId}")
+    public ResponseEntity<?> getUserProfile(@PathVariable ObjectId userId){
+        try{
+            UserDTO userDTO = userService.getUserProfile(userId);
+            return new ResponseEntity<>(userDTO,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }
