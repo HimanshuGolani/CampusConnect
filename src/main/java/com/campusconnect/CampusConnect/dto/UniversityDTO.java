@@ -1,5 +1,6 @@
 package com.campusconnect.CampusConnect.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,6 +19,9 @@ public class UniversityDTO implements CommonDTO {
     @NotNull(message = "Email cannot be empty")
     @Email(message = "Invalid Email format")
     private String email;
+
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
+    private ObjectId id;
 
     @NotNull(message = "Password cannot be null")
     @Size(min = 6, message = "Password must be at least 6 characters")

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -75,5 +76,71 @@ public class PostController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/search/title/{title}")
+    public ResponseEntity<?> searchPostsByTitle(@PathVariable String title) {
+        try {
+            List<PostEntity> posts = postService.searchPostsByTitle(title);
+            if (posts.isEmpty()) {
+                return new ResponseEntity<>("No posts found with the given title", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search/content/{content}")
+    public ResponseEntity<?> searchPostsByContent(@PathVariable String content) {
+        try {
+            List<PostEntity> posts = postService.searchPostsByContent(content);
+            if (posts.isEmpty()) {
+                return new ResponseEntity<>("No posts found with the given content", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search/tag/{tag}")
+    public ResponseEntity<?> searchPostsByTag(@PathVariable String tag) {
+        try {
+            List<PostEntity> posts = postService.searchPostsByTag(tag);
+            if (posts.isEmpty()) {
+                return new ResponseEntity<>("No posts found with the given tag", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search/text/{searchText}")
+    public ResponseEntity<?> searchPostsByText(@PathVariable String searchText) {
+        try {
+            List<PostEntity> posts = postService.searchPostsByText(searchText);
+            if (posts.isEmpty()) {
+                return new ResponseEntity<>("No posts found for the search text", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/getAllUniversityPosts/{universityId}/{page}/{pageSize}")
+    public ResponseEntity<?> getAllUniversityRelatedPosts(@Valid @PathVariable ObjectId universityId ,@PathVariable int page ,@PathVariable int pageSize){
+        try{
+            List<PostDTO> posts = postService.getAllPostsForUniversity(universityId,page,pageSize);
+            return new ResponseEntity<>(posts,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 }

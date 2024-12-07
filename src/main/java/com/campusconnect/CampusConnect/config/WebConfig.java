@@ -15,7 +15,7 @@ public class WebConfig {
         return new WebMvcConfigurer(){
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
-                        .allowedOrigins("https://campusconnect-0o3k.onrender.com", "http://192.168.29.154:8080")
+                        .allowedOrigins("https://campusconnect-0o3k.onrender.com","http://localhost:5173/")
                         .allowedMethods(HttpMethod.GET.name(),
                                 HttpMethod.POST.name(),
                                 HttpMethod.DELETE.name(),
