@@ -2,6 +2,7 @@ package com.campusconnect.CampusConnect.service;
 import com.campusconnect.CampusConnect.dto.DtoHelperClass;
 import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UserDTO;
+import com.campusconnect.CampusConnect.dto.UserProfileDto;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
@@ -34,9 +35,18 @@ public class UserService {
     }
 
 
-    public UserDTO getUserProfile(ObjectId userId){
+    public UserProfileDto getUserProfile(ObjectId userId){
         UserEntity user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("User not found"));
-        return dtoHelper.mapToUserDTO(user);
+        return new UserProfileDto(
+                user.getUserName(),
+                user.getEmail(),
+                user.getUniversityId(),
+                user.getNameOfUniversity(),
+                user.getCourse(),
+                user.getBranch(),
+                user.getPlacementStatement(),
+                user.getCurrentCompany()
+        );
     }
 
 

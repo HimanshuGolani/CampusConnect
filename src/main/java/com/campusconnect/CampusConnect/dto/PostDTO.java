@@ -2,13 +2,15 @@ package com.campusconnect.CampusConnect.dto;
 
 import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mongodb.internal.thread.DaemonThreadFactory;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -35,7 +37,9 @@ public class PostDTO {
 
     private Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List;
 
-    public PostDTO(ObjectId id, String title, ObjectId userId, String content, String userName, String imageUri, Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List, COMPANY_NAME_TAG companySpecificName_TAG) {
+    private Date createdAt;
+
+    public PostDTO(ObjectId id, String title, ObjectId userId, String content, String userName, String imageUri, Set<COMPANY_NAME_TAG> companySpecificName_TAGS_List, COMPANY_NAME_TAG companySpecificName_TAG, Date createdAt){
         this.id = id;
         this.title = title;
         this.userId = userId;
@@ -44,8 +48,9 @@ public class PostDTO {
         this.imageUri = imageUri;
         this.companySpecificName_TAGS_List = companySpecificName_TAGS_List;
         this.companySpecificName_TAG = companySpecificName_TAG;
+        this.createdAt = createdAt;
     }
-
+    
     public PostDTO(ObjectId id, ObjectId usersId, String userName, String title, String content, String imageUri) {
         this.id = id;
         this.userId=usersId;

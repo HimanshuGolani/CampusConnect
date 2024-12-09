@@ -2,6 +2,7 @@ package com.campusconnect.CampusConnect.service;
 
 import com.campusconnect.CampusConnect.dto.DtoHelperClass;
 import com.campusconnect.CampusConnect.dto.PostDTO;
+import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
@@ -12,10 +13,11 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -159,6 +161,10 @@ public class PostService {
                         .map(dtoHelper::PostObjToDTOMapping)
                         .toList())
                 .orElse(Collections.emptyList());
+    }
+
+    public List<COMPANY_NAME_TAG> getCompany_NAME_TAGsList(){
+      return Arrays.stream(COMPANY_NAME_TAG.values()).collect(Collectors.toList());   
     }
 
 }

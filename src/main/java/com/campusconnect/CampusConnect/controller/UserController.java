@@ -2,6 +2,7 @@ package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UserDTO;
+import com.campusconnect.CampusConnect.dto.UserProfileDto;
 import com.campusconnect.CampusConnect.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class UserController {
     @GetMapping("/myProfile/{userId}")
     public ResponseEntity<?> getUserProfile(@PathVariable ObjectId userId){
         try{
-            UserDTO userDTO = userService.getUserProfile(userId);
+            UserProfileDto userDTO = userService.getUserProfile(userId);
             return new ResponseEntity<>(userDTO,HttpStatus.OK);
         }
         catch (Exception e){

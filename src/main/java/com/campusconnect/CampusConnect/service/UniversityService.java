@@ -1,7 +1,6 @@
 package com.campusconnect.CampusConnect.service;
 import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.entity.CompanyEntity;
-import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.CompanyRepository;
@@ -10,6 +9,8 @@ import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,8 @@ public class UniversityService  {
     private final DtoHelperClass dtoHelper;
 
     private final UserRepository userRepository;
-    UniversityService(UniversityRepository universityRepository,CompanyRepository companyRepository,UserRepository userRepository,DtoHelperClass dtoHelper){
+
+    public UniversityService(UniversityRepository universityRepository,CompanyRepository companyRepository,UserRepository userRepository,DtoHelperClass dtoHelper){
         this.universityRepository = universityRepository;
         this.companyRepository=companyRepository;
         this.userRepository=userRepository;
@@ -51,7 +53,7 @@ public class UniversityService  {
             CompanyEntity savedEntity = companyRepository.save(companyEntity1);
             university.getCompanyList().add(savedEntity);
             companyDetails.setId(savedEntity.getId());
-            UniversityEntity updatedUniversity = universityRepository.save(university);
+            universityRepository.save(university);
             return companyDetails;
         }
         return null;
@@ -85,6 +87,20 @@ public class UniversityService  {
         });
     }
 
+    public UniversityProfileDto getUniversityProfile(ObjectId universityId){
+        UniversityEntity university = universityRepository.findById(universityId)
+                .orElseThrow(()-> new IllegalArgumentException("University not found"));
+        return new UniversityProfileDto(
+                university.getUniversityId(),
+                university.getLocationOfUniversity(),
+                university.getNameOfUniversity(),
+                university.getNirfRanking(),
+                university.getAllStudents().size(),
+                university.getOfficerHead(),
+                university.getEstablishedIn(),
+                university.getCompanyList().size()
+        );
+    }
 
 
 }

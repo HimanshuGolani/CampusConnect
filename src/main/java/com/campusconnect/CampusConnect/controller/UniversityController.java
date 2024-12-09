@@ -75,6 +75,18 @@ public class UniversityController {
     }
 
 
+    @GetMapping("/myProfile/{universityId}")
+    public ResponseEntity<?> getUniversityProfile(@Valid @PathVariable ObjectId universityId){
+        try {
+                return new ResponseEntity<>(universityService.getUniversityProfile(universityId),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
 
 
 

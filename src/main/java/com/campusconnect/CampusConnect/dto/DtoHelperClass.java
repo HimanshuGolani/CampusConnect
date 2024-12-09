@@ -82,12 +82,17 @@ public class DtoHelperClass {
 
     public PostDTO PostObjToDTOMapping(PostEntity postData) {
         return new PostDTO(
-                postData.getId(),
-                postData.getUsersId(),
-                postData.getUserName(),
-                postData.getTitle(),
-                postData.getContent(),
-                postData.getImageUri());
+            postData.getId(),
+            postData.getTitle(),
+            postData.getUsersId(),
+            postData.getContent(),
+            postData.getUserName(),
+            postData.getImageUri(),
+            postData.getCompanySpecificName_TAGS_List(),
+            postData.getCompanySpecificNameTAG(), 
+            postData.getCreatedAt()
+    );
+    
     }
 
 }

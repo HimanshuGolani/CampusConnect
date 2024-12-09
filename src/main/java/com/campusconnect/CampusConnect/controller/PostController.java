@@ -4,8 +4,8 @@ import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.service.PostService;
 import jakarta.validation.Valid;
- import org.bson.types.ObjectId;
- import org.springframework.http.HttpStatus;
+import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -138,6 +138,16 @@ public class PostController {
         }
         catch (Exception e){
             return new ResponseEntity<>(e,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getAllCompanyTags")
+    public ResponseEntity<?> getAllNameTags(){
+        try{
+            return new ResponseEntity<>(postService.getCompany_NAME_TAGsList(),HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
