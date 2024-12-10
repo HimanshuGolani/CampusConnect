@@ -58,7 +58,7 @@ public class UniversityEntity {
     private List<UserEntity> allStudents = new ArrayList<>();
 
     //  List of the company's that comes to the campus for hiring.
-    @DBRef
+    @DBRef(lazy = false)
     private Set<CompanyEntity> companyList =  new HashSet<>();
 
 

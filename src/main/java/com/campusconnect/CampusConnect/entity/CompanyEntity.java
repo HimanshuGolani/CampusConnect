@@ -1,5 +1,6 @@
 package com.campusconnect.CampusConnect.entity;
 
+import com.campusconnect.CampusConnect.dto.UserDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -23,8 +24,10 @@ public class CompanyEntity {
 
     private ObjectId universityId;
 
-    @DBRef
+    @DBRef(lazy = false)
     private List<UserEntity> selectedStudents = new ArrayList<>();
+
+
 
 
 }

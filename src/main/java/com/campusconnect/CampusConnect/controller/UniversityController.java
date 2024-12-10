@@ -10,6 +10,9 @@ import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -64,10 +67,10 @@ public class UniversityController {
         }
     }
 
-    @PostMapping("/addStudent/{universityId}/{companyId}")
-    public ResponseEntity<?> addStudentToCompany(@PathVariable ObjectId universityId , @RequestBody List<ObjectId> userIds , @PathVariable ObjectId companyId){
+    @PostMapping("/addStudent/{universityId}/{companyId}/{userId}")
+        public ResponseEntity<?> addStudentToCompany(@PathVariable ObjectId universityId , @PathVariable ObjectId companyId , @PathVariable ObjectId userId){
         try{
-            universityService.addStudentToCompany(userIds,universityId,companyId);
+            universityService.addStudentToCompany(userId,universityId,companyId);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -84,6 +87,22 @@ public class UniversityController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @GetMapping("/search/{universityId}")
+    public ResponseEntity<?> searchUserByEmail(@RequestParam("email") String searchEmail , @Valid @PathVariable ObjectId universityId) {
+        try {
+            UserDTO user = universityService.findUserByEmail(searchEmail,universityId);
+            if (user != null) {
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 

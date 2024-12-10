@@ -1,5 +1,6 @@
 package com.campusconnect.CampusConnect.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,6 +24,7 @@ public class UserEntity {
 
     @Id
     @Generated
+    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId id;
 
     @NotNull(message = "email cannot be empty")

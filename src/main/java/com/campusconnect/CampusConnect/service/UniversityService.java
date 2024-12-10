@@ -68,24 +68,34 @@ public class UniversityService  {
                 .orElse(Collections.emptyList());
     }
 
+
+
     @Transactional
-    public void addStudentToCompany(List<ObjectId> userIds, ObjectId universityId, ObjectId companyId) {
-        universityRepository.findById(universityId).flatMap(university -> companyRepository.findById(companyId)).ifPresent(company -> {
-            List<UserEntity> selectedStudents = company.getSelectedStudents();
-            List<UserEntity> usersToAdd = userRepository.findAllById(userIds);
+    public void addStudentToCompany(ObjectId userId, ObjectId universityId, ObjectId companyId) {
+        // Fetch the company
+        CompanyEntity company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new IllegalArgumentException("Company with ID " + companyId + " not found"));
 
-            // Add only the users not already in the selectedStudents list
-            Set<ObjectId> selectedStudentIds = selectedStudents.stream()
-                    .map(UserEntity::getId)
-                    .collect(Collectors.toSet());
+        // Verify the company belongs to the university
+        if (!company.getUniversityId().equals(universityId)) {
+            throw new IllegalStateException("Company with ID " + companyId + " is not associated with university ID " + universityId);
+        }
 
-            usersToAdd.stream()
-                    .filter(user -> !selectedStudentIds.contains(user.getId()))
-                    .forEach(selectedStudents::add);
+        // Fetch the user
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + userId + " not found"));
 
-            companyRepository.save(company); // Save updated company with new students
-        });
+        // Check if the user is already added
+        if (company.getSelectedStudents().stream().anyMatch(student -> student.getId().equals(user.getId()))) {
+            throw new IllegalStateException("User with ID " + userId + " is already added to the company");
+        }
+
+        // Add user to the company's selected students
+        company.getSelectedStudents().add(user);
+        companyRepository.save(company);
     }
+
+
 
     public UniversityProfileDto getUniversityProfile(ObjectId universityId){
         UniversityEntity university = universityRepository.findById(universityId)
@@ -101,6 +111,12 @@ public class UniversityService  {
                 university.getCompanyList().size()
         );
     }
+
+    public UserDTO findUserByEmail(String email,ObjectId universityId) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByEmailInUniversity(email,universityId);
+        return userEntityOptional.map(dtoHelper::mapToUserDTO).orElse(null);
+    }
+
 
 
 }

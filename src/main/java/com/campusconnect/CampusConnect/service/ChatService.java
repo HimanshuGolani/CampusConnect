@@ -4,6 +4,7 @@ import com.campusconnect.CampusConnect.entity.ChatEntity;
 import com.campusconnect.CampusConnect.entity.MessageEntity;
 import org.bson.types.ObjectId;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ChatService {
@@ -11,4 +12,6 @@ public interface ChatService {
     Optional<ChatEntity> createOrGetChat(ObjectId senderId, ObjectId receiverId);
 
     Optional<ChatEntity> addMessage(ObjectId chatId, MessageEntity message);
+
+    Optional<List<ChatEntity>> getAllChats(ObjectId userId);
 }

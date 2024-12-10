@@ -6,7 +6,9 @@ import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class DtoHelperClass {
@@ -58,11 +60,13 @@ public class DtoHelperClass {
         return companyEntity1;
     }
 
-    public CompanyDTO mapToCompanyDTO(CompanyEntity companyDetails){
+    public CompanyDTO mapToCompanyDTO(CompanyEntity companyDetails) {
         CompanyDTO companyDTO = new CompanyDTO();
         companyDTO.setId(companyDetails.getId());
         companyDTO.setCompanyName(companyDetails.getCompanyName());
         companyDTO.setUniversityId(companyDetails.getUniversityId());
+        System.out.println(companyDetails.getSelectedStudents());
+        companyDTO.setSelectedStudents(companyDetails.getSelectedStudents());
         return companyDTO;
     }
 
@@ -89,10 +93,10 @@ public class DtoHelperClass {
             postData.getUserName(),
             postData.getImageUri(),
             postData.getCompanySpecificName_TAGS_List(),
-            postData.getCompanySpecificNameTAG(), 
+            postData.getCompanySpecificNameTAG(),
             postData.getCreatedAt()
     );
-    
+
     }
 
 }
