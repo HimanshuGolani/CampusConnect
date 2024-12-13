@@ -31,30 +31,24 @@ public class PostService {
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
-    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository,DtoHelperClass dtoHelper) {
+    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.universityRepository = universityRepository;
-        this.dtoHelper=dtoHelper;
+        this.dtoHelper = dtoHelper;
     }
 
     // Creating a post
     @Transactional
     public void createPost(ObjectId userId, PostDTO postData) {
         try {
-            System.out.println("The user id is : " + userId);
+            logger.info("Creating a post for user ID: {}", userId);
             Optional<UserEntity> userOpt = userRepository.findById(userId);
             if (userOpt.isPresent()) {
                 UserEntity user = userOpt.get();
-
-                // Convert DTO to Entity
                 PostEntity post = dtoHelper.PostDtoToObjectMapping(postData);
-
-                // Set references
                 post.setUsersId(userId);
                 post.setUniversityId(user.getUniversityId());
-
-                // Save post
                 postRepository.save(post);
 
                 Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(user.getUniversityId());
@@ -62,28 +56,33 @@ public class PostService {
                     UniversityEntity university = universityEntityOptional.get();
                     university.getUniversityRelatedPosts().add(post);
                     universityRepository.save(university);
+                    logger.info("Post added to university with ID: {}", user.getUniversityId());
                 } else {
+                    logger.error("University not found with the id {}", user.getUniversityId());
                     throw new RuntimeException("University not found.");
                 }
 
-                // Add post to user's list
                 user.getPosts().add(post);
                 userRepository.save(user);
+                logger.info("Post created successfully for user ID: {}", userId);
             } else {
+                logger.error("User not found with the id {}", userId);
                 throw new RuntimeException("User not found.");
             }
         } catch (Exception e) {
-            System.out.println("Error occurred: " + e.getMessage());
+            logger.error("Error while creating post for user ID: {}", userId, e);
             throw new RuntimeException("An error occurred while saving the post.", e);
         }
     }
 
     // Getting a post by post ID
     public PostEntity getPostById(ObjectId postId) {
+        logger.info("Fetching post with ID: {}", postId);
         Optional<PostEntity> postOpt = postRepository.findById(postId);
         if (postOpt.isPresent()) {
             return postOpt.get();
         } else {
+            logger.error("Post not found with ID: {}", postId);
             throw new RuntimeException("Post not found.");
         }
     }
@@ -91,6 +90,7 @@ public class PostService {
     // Updating a post by post ID
     @Transactional
     public void updatePost(ObjectId postId, PostDTO updatedPostData) {
+        logger.info("Updating post with ID: {}", postId);
         Optional<PostEntity> postOpt = postRepository.findById(postId);
         if (postOpt.isPresent()) {
             PostEntity post = postOpt.get();
@@ -104,7 +104,9 @@ public class PostService {
 
             // Save updated post
             postRepository.save(post);
+            logger.info("Post with ID: {} updated successfully", postId);
         } else {
+            logger.error("Post not found with ID: {}", postId);
             throw new RuntimeException("Post not found.");
         }
     }
@@ -113,6 +115,7 @@ public class PostService {
     @Transactional
     public void deletePost(ObjectId postId) {
         try {
+            logger.info("Deleting post with ID: {}", postId);
             Optional<PostEntity> postOpt = postRepository.findById(postId);
             if (postOpt.isPresent()) {
                 PostEntity post = postOpt.get();
@@ -126,38 +129,44 @@ public class PostService {
                     UserEntity user = userOpt.get();
                     user.getPosts().remove(post);
                     userRepository.save(user);
+                    logger.info("Post with ID: {} removed from user with ID: {}", postId, user.getId());
                 }
             } else {
+                logger.error("Post not found with ID: {}", postId);
                 throw new RuntimeException("Post not found.");
             }
         } catch (Exception e) {
+            logger.error("Error occurred while deleting post with ID: {}", postId, e);
             throw new RuntimeException("An error occurred while deleting the post.", e);
         }
     }
 
     // Search posts by title
     public List<PostEntity> searchPostsByTitle(String title) {
+        logger.info("Searching posts with title containing: {}", title);
         return postRepository.findByTitleContainingIgnoreCase(title);
     }
 
     // Search posts by content (description)
     public List<PostEntity> searchPostsByContent(String content) {
+        logger.info("Searching posts with content containing: {}", content);
         return postRepository.findByContentContainingIgnoreCase(content);
     }
 
-
-
     // Search posts by tag
     public List<PostEntity> searchPostsByTag(String tag) {
+        logger.info("Searching posts with tag: {}", tag);
         return postRepository.findByCompanySpecificNameTAG_ListContainingIgnoreCase(tag);
     }
 
     // Search posts by text (title, content, etc.)
     public List<PostEntity> searchPostsByText(String searchText) {
+        logger.info("Searching posts with text: {}", searchText);
         return postRepository.searchByText(searchText);
     }
 
     public List<PostDTO> getAllPostsForUniversity(ObjectId universityId, int page, int pageSize) {
+        logger.info("Fetching all posts for university ID: {} with pagination page: {} and pageSize: {}", universityId, page, pageSize);
         return universityRepository.findById(universityId)
                 .map(university -> university.getUniversityRelatedPosts().stream()
                         .skip((long) (page - 1) * pageSize)
@@ -167,8 +176,9 @@ public class PostService {
                 .orElse(Collections.emptyList());
     }
 
-    public List<COMPANY_NAME_TAG> getCompany_NAME_TAGsList(){
-      return Arrays.stream(COMPANY_NAME_TAG.values()).collect(Collectors.toList());   
+    public List<COMPANY_NAME_TAG> getCompany_NAME_TAGsList() {
+        logger.info("Fetching all available company name tags");
+        return Arrays.stream(COMPANY_NAME_TAG.values()).collect(Collectors.toList());
     }
 
 }

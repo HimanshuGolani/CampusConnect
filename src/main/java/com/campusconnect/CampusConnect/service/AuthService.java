@@ -32,38 +32,28 @@ public class AuthService {
 
     @Transactional
     public void userSignUp(@Valid UserDTO userData) {
-        // Map UserDTO to UserEntity
         UserEntity userEntity = dtoHelper.UserDtoToEntityMapper(userData);
-
-         // Fetch the university by the provided ID
         Optional<UniversityEntity> universityOptional = universityRepository.findById(userData.getUniversityId());
-        // Check if university is present
         if (universityOptional.isPresent()) {
             UniversityEntity university = universityOptional.get();
-            System.out.println(university.toString());
-
-            // Add the student's ID to the university's student list
             List<UserEntity> allStudents = university.getAllStudents();
             if (allStudents != null) {
                 allStudents.add(userEntity);
             } else {
-                // Initialize the list if it's null
                 allStudents = new ArrayList<>();
                 allStudents.add(userEntity);
                 university.setAllStudents(allStudents);
             }
-
-            // Save the user and update the university entity
-           userRepository.save(userEntity);
+            userRepository.save(userEntity);
             universityRepository.save(university);
         } else {
-            throw new RuntimeException("University not found with id: " + userData.getUniversityId());
+            logger.error("University not found and the id was {}",userData.getUniversityId());
+            throw new RuntimeException("University not found.");
         }
     }
 
     public UserLoginDto userLogin(@Valid LoginDTO userData) {
         Optional<UserEntity> user = userRepository.findByEmail(userData.getEmail());
-
         if (user.isEmpty()) {
             UserLoginDto data = new UserLoginDto();
             data.setLoginStatus(false);
@@ -82,7 +72,6 @@ public class AuthService {
     // University login
     public UniversityLoginDto universityLogin(@Valid LoginDTO universityData) {
         Optional<UniversityEntity> university = universityRepository.findByEmail(universityData.getEmail());
-
         if (university.isEmpty()) {
             UniversityLoginDto data = new UniversityLoginDto();
             data.setLogin_Status(false);
