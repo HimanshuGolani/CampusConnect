@@ -8,6 +8,8 @@ import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +19,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final DtoHelperClass dtoHelper;
-    private final UniversityRepository universityRepository;
 
-    public UserService(UserRepository userRepository , DtoHelperClass dtoHelper ,UniversityRepository universityRepository ){
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    public UserService(UserRepository userRepository , DtoHelperClass dtoHelper ){
         this.userRepository = userRepository;
         this.dtoHelper = dtoHelper;
-        this.universityRepository=universityRepository;
     }
 
     public List<PostDTO> getAllPosts(ObjectId userId) {

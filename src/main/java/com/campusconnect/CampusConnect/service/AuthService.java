@@ -6,7 +6,8 @@ import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import jakarta.validation.Valid;
-import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,9 @@ public class AuthService {
     private final UserRepository userRepository;
     private final UniversityRepository universityRepository;
     private final DtoHelperClass dtoHelper;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
     AuthService(UserRepository userRepository, UniversityRepository universityRepository,DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
         this.universityRepository = universityRepository;

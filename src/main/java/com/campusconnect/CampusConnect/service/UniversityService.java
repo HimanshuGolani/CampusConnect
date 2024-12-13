@@ -7,10 +7,10 @@ import com.campusconnect.CampusConnect.repositories.CompanyRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,8 @@ public class UniversityService  {
     private final DtoHelperClass dtoHelper;
 
     private final UserRepository userRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(UniversityService.class);
 
     public UniversityService(UniversityRepository universityRepository,CompanyRepository companyRepository,UserRepository userRepository,DtoHelperClass dtoHelper){
         this.universityRepository = universityRepository;

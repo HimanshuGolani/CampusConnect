@@ -10,6 +10,8 @@ import com.campusconnect.CampusConnect.repositories.PostRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final UniversityRepository universityRepository;
     private final DtoHelperClass dtoHelper;
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository,DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
