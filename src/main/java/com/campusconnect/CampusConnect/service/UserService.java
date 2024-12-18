@@ -10,6 +10,9 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,5 +71,16 @@ public class UserService {
 
         logger.info("Fetched profile for user ID: {} - Username: {}", userId, user.getUserName());
         return userProfile;
+    }
+
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
+        return User.builder()
+                .username(user.getEmail()) // Use email as the username
+                .password(user.getPassword()) // Use encrypted password
+                .roles("USER") // Customize roles or authorities
+                .build();
     }
 }

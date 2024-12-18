@@ -13,20 +13,20 @@ public class AuthController {
 
 
     private final AuthService authService;
-   public AuthController(AuthService authService){
+    public AuthController(AuthService authService){
         this.authService = authService;
     }
 
     // User signup
     @PostMapping("/user/signup")
     public ResponseEntity<?> userSignUp(@Valid @RequestBody UserDTO userData) {
-       try{
-           authService.userSignUp(userData);
-           return new ResponseEntity<>(userData.getUserName() , HttpStatus.CREATED);
-       }
-       catch (Exception e){
-           return new ResponseEntity<>(e.getMessage() , HttpStatus.INTERNAL_SERVER_ERROR);
-       }
+        try{
+            authService.userSignUp(userData);
+            return new ResponseEntity<>(userData.getUserName() , HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage() , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // User login
@@ -54,13 +54,12 @@ public class AuthController {
     // University signup
     @PostMapping("/university/signup")
     public ResponseEntity<?> universitySignUp(@Valid @RequestBody UniversityDTO universityData) {
-       try{
-           authService.universitySignUp(universityData);
-           return ResponseEntity.status(201).body("University successfully registered");
-       }catch (Exception e){
-           return ResponseEntity.status(501).body("Internal server error");
-       }
+        try{
+            authService.universitySignUp(universityData);
+            return ResponseEntity.status(201).body("University successfully registered");
+        }catch (Exception e){
+            return ResponseEntity.status(501).body("Internal server error");
+        }
     }
 }
-
 

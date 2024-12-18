@@ -14,6 +14,8 @@ public class UserLoginDto {
 
     private boolean loginStatus;
 
+    private String token;
+
     @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     private ObjectId universityId;
 

@@ -8,6 +8,7 @@ import com.campusconnect.CampusConnect.repositories.UserRepository;
 import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final UniversityRepository universityRepository;
     private final DtoHelperClass dtoHelper;
+    private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
@@ -30,15 +32,17 @@ public class AuthService {
     private static final String USER_NOT_FOUND = "User with email: {} not found.";
     private static final String UNIVERSITY_LOGIN_FAILED = "University login failed for email: {}";
 
-    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper) {
+    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.universityRepository = universityRepository;
         this.dtoHelper = dtoHelper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public void userSignUp(@Valid UserDTO userData) {
         UserEntity userEntity = dtoHelper.UserDtoToEntityMapper(userData);
+        userEntity.setPassword(passwordEncoder.encode(userData.getPassword())); // Encrypt password
         Optional<UniversityEntity> universityOptional = universityRepository.findById(userData.getUniversityId());
         if (universityOptional.isPresent()) {
             UniversityEntity university = universityOptional.get();
@@ -67,11 +71,14 @@ public class AuthService {
             return loginResponse;
         }
 
-        if (user.get().getPassword().equals(userData.getPassword())) {
+        if (passwordEncoder.matches(userData.getPassword(), user.get().getPassword())) { // Compare encrypted password
             loginResponse.setLoginStatus(true);
             loginResponse.setUserName(user.get().getUserName());
             loginResponse.setId(user.get().getId());
             loginResponse.setUniversityId(user.get().getUniversityId());
+            logger.info("User logged in successfully: {}", userData.getEmail());
+
+
             logger.info("User logged in successfully: {}", userData.getEmail());
         } else {
             loginResponse.setLoginStatus(false);
@@ -80,7 +87,6 @@ public class AuthService {
         return loginResponse;
     }
 
-    // University login
     public UniversityLoginDto universityLogin(@Valid LoginDTO universityData) {
         Optional<UniversityEntity> university = universityRepository.findByEmail(universityData.getEmail());
         UniversityLoginDto loginResponse = new UniversityLoginDto();
@@ -91,7 +97,7 @@ public class AuthService {
             return loginResponse;
         }
 
-        if (university.get().getPassword().equals(universityData.getPassword())) {
+        if (passwordEncoder.matches(universityData.getPassword(), university.get().getPassword())) { // Compare encrypted password
             loginResponse.setLogin_Status(true);
             loginResponse.setId(university.get().getId());
             loginResponse.setUniversityName(university.get().getNameOfUniversity());
@@ -106,6 +112,7 @@ public class AuthService {
     @Transactional
     public void universitySignUp(@Valid UniversityDTO universityData) {
         UniversityEntity universityEntity = dtoHelper.UniversityEntityToDtoMapper(universityData);
+        universityEntity.setPassword(passwordEncoder.encode(universityData.getPassword())); // Encrypt password
         universityRepository.save(universityEntity);
         logger.info("University signed up successfully: {}", universityData.getNameOfUniversity());
     }

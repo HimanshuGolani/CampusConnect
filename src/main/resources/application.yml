@@ -9,13 +9,19 @@ spring:
     user:
       name: user1
       password: password
+  app:
+    # Secure, base64-encoded 256-bit key for JWT
+    jwtSecret: WmGNTUqlB8G6PZAdTezB2xqYfj9k2+qV1J0nFgBrmkI=
+    # JWT expiration time in milliseconds
+    jwtExpirationMs: 86400000
+  main:
+    allow-circular-references: true
+
 server:
   port: 8080
 
-
-
-#logger:
-#  level:
-#    net:
-#      campusconnect:
-#        CampusConnect: DEBUG
+# Optional logger configuration
+logging:
+  level:
+    root: INFO
+    com.campusconnect.CampusConnect: DEBUG
