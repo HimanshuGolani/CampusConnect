@@ -7,6 +7,9 @@ import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.CompanyRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
+import com.campusconnect.CampusConnect.exception.CompanyNotFoundException;
+import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
+import com.campusconnect.CampusConnect.exception.UserNotFoundException;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +24,16 @@ public class UniversityService {
 
     private final UniversityRepository universityRepository;
     private final CompanyRepository companyRepository;
-    private final DtoHelperClass dtoHelper;
     private final UserRepository userRepository;
+    private final DtoHelperClass dtoHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(UniversityService.class);
+
+    // Constants for repeated messages
+    private static final String UNIVERSITY_NOT_FOUND = "University not found with ID: {}";
+    private static final String COMPANY_NOT_FOUND = "Company with ID: {} not found.";
+    private static final String USER_NOT_FOUND = "User with ID: {} not found.";
+    private static final String USER_ALREADY_ADDED = "User with ID: {} is already added to company with ID: {}.";
 
     public UniversityService(UniversityRepository universityRepository, CompanyRepository companyRepository, UserRepository userRepository, DtoHelperClass dtoHelper) {
         this.universityRepository = universityRepository;
@@ -54,17 +63,18 @@ public class UniversityService {
         if (universityEntityOptional.isPresent()) {
             UniversityEntity university = universityEntityOptional.get();
             companyDetails.setUniversityId(universityId);
-            CompanyEntity companyEntity1 = dtoHelper.mapToCompanyEntity(companyDetails);
-            companyEntity1.setUniversityId(universityId);
-            CompanyEntity savedEntity = companyRepository.save(companyEntity1);
+            CompanyEntity companyEntity = dtoHelper.mapToCompanyEntity(companyDetails);
+            companyEntity.setUniversityId(universityId);
+            CompanyEntity savedEntity = companyRepository.save(companyEntity);
             university.getCompanyList().add(savedEntity);
             companyDetails.setId(savedEntity.getId());
             universityRepository.save(university);
             logger.info("Company created successfully for university ID: {}", universityId);
             return companyDetails;
+        } else {
+            logger.error(UNIVERSITY_NOT_FOUND, universityId);
+            throw new UniversityNotFoundException("University not found with ID: " + universityId);
         }
-        logger.error("University not found with ID: {}", universityId);
-        return null;
     }
 
     public List<CompanyDTO> findAllCompaniesVisiting(ObjectId universityId) {
@@ -80,44 +90,45 @@ public class UniversityService {
     @Transactional
     public void addStudentToCompany(ObjectId userId, ObjectId universityId, ObjectId companyId) {
         logger.info("Adding student with user ID: {} to company ID: {} for university ID: {}", userId, companyId, universityId);
+
         // Fetch the company
         CompanyEntity company = companyRepository.findById(companyId)
                 .orElseThrow(() -> {
-                    logger.error("Company with ID {} not found.", companyId);
-                    return new IllegalArgumentException("Company with ID " + companyId + " not found");
+                    logger.error(COMPANY_NOT_FOUND, companyId);
+                    return new CompanyNotFoundException("Company with ID " + companyId + " not found.");
                 });
 
         // Verify the company belongs to the university
         if (!company.getUniversityId().equals(universityId)) {
-            logger.error("Company with ID {} is not associated with university ID {}", companyId, universityId);
+            logger.error("Company with ID: {} is not associated with university ID: {}", companyId, universityId);
             throw new IllegalStateException("Company with ID " + companyId + " is not associated with university ID " + universityId);
         }
 
         // Fetch the user
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> {
-                    logger.error("User with ID {} not found.", userId);
-                    return new IllegalArgumentException("User with ID " + userId + " not found");
+                    logger.error(USER_NOT_FOUND, userId);
+                    return new UserNotFoundException("User with ID " + userId + " not found.");
                 });
 
         // Check if the user is already added
         if (company.getSelectedStudents().stream().anyMatch(student -> student.getId().equals(user.getId()))) {
-            logger.error("User with ID {} is already added to company with ID {}", userId, companyId);
-            throw new IllegalStateException("User with ID " + userId + " is already added to the company");
+            logger.error(USER_ALREADY_ADDED, userId, companyId);
+            throw new IllegalStateException("User with ID " + userId + " is already added to company with ID " + companyId);
         }
 
         // Add user to the company's selected students
         company.getSelectedStudents().add(user);
         companyRepository.save(company);
-        logger.info("User with ID {} added to company with ID {} successfully.", userId, companyId);
+        logger.info("User with ID: {} added to company with ID: {} successfully.", userId, companyId);
     }
 
     public UniversityProfileDto getUniversityProfile(ObjectId universityId) {
         logger.info("Fetching profile for university ID: {}", universityId);
         UniversityEntity university = universityRepository.findById(universityId)
                 .orElseThrow(() -> {
-                    logger.error("University not found with ID: {}", universityId);
-                    return new IllegalArgumentException("University not found");
+                    logger.error(UNIVERSITY_NOT_FOUND, universityId);
+                    return new UniversityNotFoundException("University not found with ID: " + universityId);
                 });
 
         return new UniversityProfileDto(

@@ -1,7 +1,6 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.CompanyDTO;
-import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UniversityNameListDTO;
 import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.service.UniversityService;
@@ -11,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -88,7 +85,6 @@ public class UniversityController {
         }
     }
 
-
     @GetMapping("/search/{universityId}")
     public ResponseEntity<?> searchUserByEmail(@RequestParam("email") String searchEmail , @Valid @PathVariable ObjectId universityId) {
         try {
@@ -102,20 +98,5 @@ public class UniversityController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-
-
-
-
 }
 
-// List of functions to be implemented
-
-// 1. Show the list of all the students. (DONE)
-// 2. show the list of all the companies visited. (DONE)
-// 3. Adding posts to the community that are visible to all the students of the university
-// 4. Having the admin access that can delete users particular post
-// 5. Uploading the list of students per company. (DONE)
-// 6. Updating/editing own posts and deleting them. (DONE)

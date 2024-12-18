@@ -9,6 +9,9 @@ import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.repositories.PostRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
+import com.campusconnect.CampusConnect.exception.PostNotFoundException;
+import com.campusconnect.CampusConnect.exception.UserNotFoundException;
+import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +34,11 @@ public class PostService {
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
+    // Constants
+    private static final String POST_NOT_FOUND = "Post not found with ID: {}";
+    private static final String USER_NOT_FOUND = "User not found with ID: {}";
+    private static final String UNIVERSITY_NOT_FOUND = "University not found with ID: {}";
+
     public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -42,7 +50,7 @@ public class PostService {
     @Transactional
     public void createPost(ObjectId userId, PostDTO postData) {
         try {
-            logger.info("Creating a post for user ID: {}", userId);
+            logger.info("Attempting to create post for user ID: {}", userId);
             Optional<UserEntity> userOpt = userRepository.findById(userId);
             if (userOpt.isPresent()) {
                 UserEntity user = userOpt.get();
@@ -56,21 +64,18 @@ public class PostService {
                     UniversityEntity university = universityEntityOptional.get();
                     university.getUniversityRelatedPosts().add(post);
                     universityRepository.save(university);
-                    logger.info("Post added to university with ID: {}", user.getUniversityId());
                 } else {
-                    logger.error("University not found with the id {}", user.getUniversityId());
-                    throw new RuntimeException("University not found.");
+                    logger.error(UNIVERSITY_NOT_FOUND, user.getUniversityId());
+                    throw new UniversityNotFoundException("University not found.");
                 }
-
                 user.getPosts().add(post);
                 userRepository.save(user);
-                logger.info("Post created successfully for user ID: {}", userId);
             } else {
-                logger.error("User not found with the id {}", userId);
-                throw new RuntimeException("User not found.");
+                logger.error(USER_NOT_FOUND, userId);
+                throw new UserNotFoundException("User not found.");
             }
         } catch (Exception e) {
-            logger.error("Error while creating post for user ID: {}", userId, e);
+            logger.error("Error occurred while creating post for user ID: {}", userId, e);
             throw new RuntimeException("An error occurred while saving the post.", e);
         }
     }
@@ -82,8 +87,8 @@ public class PostService {
         if (postOpt.isPresent()) {
             return postOpt.get();
         } else {
-            logger.error("Post not found with ID: {}", postId);
-            throw new RuntimeException("Post not found.");
+            logger.error(POST_NOT_FOUND, postId);
+            throw new PostNotFoundException("Post not found.");
         }
     }
 
@@ -94,46 +99,40 @@ public class PostService {
         Optional<PostEntity> postOpt = postRepository.findById(postId);
         if (postOpt.isPresent()) {
             PostEntity post = postOpt.get();
-
-            // Update fields
             post.setTitle(updatedPostData.getTitle());
             post.setContent(updatedPostData.getContent());
             post.setImageUri(updatedPostData.getImageUri());
             post.setCompanySpecificNameTAG(updatedPostData.getCompanySpecificName_TAG());
             post.setCompanySpecificName_TAGS_List(updatedPostData.getCompanySpecificName_TAGS_List());
 
-            // Save updated post
             postRepository.save(post);
-            logger.info("Post with ID: {} updated successfully", postId);
+            logger.info("Successfully updated post with ID: {}", postId);
         } else {
-            logger.error("Post not found with ID: {}", postId);
-            throw new RuntimeException("Post not found.");
+            logger.error(POST_NOT_FOUND, postId);
+            throw new PostNotFoundException("Post not found.");
         }
     }
 
     // Deleting a post by post ID
     @Transactional
     public void deletePost(ObjectId postId) {
+        logger.info("Attempting to delete post with ID: {}", postId);
         try {
-            logger.info("Deleting post with ID: {}", postId);
             Optional<PostEntity> postOpt = postRepository.findById(postId);
             if (postOpt.isPresent()) {
                 PostEntity post = postOpt.get();
-
-                // Delete post from repository
                 postRepository.delete(post);
 
-                // Remove reference from the user
                 Optional<UserEntity> userOpt = userRepository.findById(post.getUsersId());
                 if (userOpt.isPresent()) {
                     UserEntity user = userOpt.get();
                     user.getPosts().remove(post);
                     userRepository.save(user);
-                    logger.info("Post with ID: {} removed from user with ID: {}", postId, user.getId());
+                    logger.info("Post with ID: {} deleted successfully", postId);
                 }
             } else {
-                logger.error("Post not found with ID: {}", postId);
-                throw new RuntimeException("Post not found.");
+                logger.error(POST_NOT_FOUND, postId);
+                throw new PostNotFoundException("Post not found.");
             }
         } catch (Exception e) {
             logger.error("Error occurred while deleting post with ID: {}", postId, e);
@@ -143,30 +142,30 @@ public class PostService {
 
     // Search posts by title
     public List<PostEntity> searchPostsByTitle(String title) {
-        logger.info("Searching posts with title containing: {}", title);
+        logger.info("Searching posts by title: {}", title);
         return postRepository.findByTitleContainingIgnoreCase(title);
     }
 
     // Search posts by content (description)
     public List<PostEntity> searchPostsByContent(String content) {
-        logger.info("Searching posts with content containing: {}", content);
+        logger.info("Searching posts by content: {}", content);
         return postRepository.findByContentContainingIgnoreCase(content);
     }
 
     // Search posts by tag
     public List<PostEntity> searchPostsByTag(String tag) {
-        logger.info("Searching posts with tag: {}", tag);
+        logger.info("Searching posts by tag: {}", tag);
         return postRepository.findByCompanySpecificNameTAG_ListContainingIgnoreCase(tag);
     }
 
     // Search posts by text (title, content, etc.)
     public List<PostEntity> searchPostsByText(String searchText) {
-        logger.info("Searching posts with text: {}", searchText);
+        logger.info("Searching posts by text: {}", searchText);
         return postRepository.searchByText(searchText);
     }
 
     public List<PostDTO> getAllPostsForUniversity(ObjectId universityId, int page, int pageSize) {
-        logger.info("Fetching all posts for university ID: {} with pagination page: {} and pageSize: {}", universityId, page, pageSize);
+        logger.info("Fetching posts for university ID: {}", universityId);
         return universityRepository.findById(universityId)
                 .map(university -> university.getUniversityRelatedPosts().stream()
                         .skip((long) (page - 1) * pageSize)
@@ -177,8 +176,6 @@ public class PostService {
     }
 
     public List<COMPANY_NAME_TAG> getCompany_NAME_TAGsList() {
-        logger.info("Fetching all available company name tags");
         return Arrays.stream(COMPANY_NAME_TAG.values()).collect(Collectors.toList());
     }
-
 }

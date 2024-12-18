@@ -1,4 +1,5 @@
 package com.campusconnect.CampusConnect.controller;
+
 import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.service.AuthService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class AuthController {
     public ResponseEntity<?> userLogin(@Valid @RequestBody LoginDTO userData) {
         UserLoginDto data = authService.userLogin(userData);
         if (data.isLoginStatus()) {
-            return ResponseEntity.status(202).body(data);
+            return ResponseEntity.status(200).body(data);
         } else {
             return ResponseEntity.status(401).body(data);
         }
@@ -44,7 +45,7 @@ public class AuthController {
     public ResponseEntity<?> universityLogin(@Valid @RequestBody LoginDTO universityData) {
         UniversityLoginDto data = authService.universityLogin(universityData);
         if (data.isLogin_Status()) {
-            return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(data,HttpStatus.OK);
         } else {
             return ResponseEntity.status(401).body("Invalid email or password");
         }

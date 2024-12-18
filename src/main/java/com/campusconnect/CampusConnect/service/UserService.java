@@ -2,17 +2,15 @@ package com.campusconnect.CampusConnect.service;
 
 import com.campusconnect.CampusConnect.dto.DtoHelperClass;
 import com.campusconnect.CampusConnect.dto.PostDTO;
-import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.dto.UserProfileDto;
-import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
-import com.campusconnect.CampusConnect.repositories.UniversityRepository;
+import com.campusconnect.CampusConnect.exception.UserNotFoundException;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +22,9 @@ public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
+    // Constants for repeated messages
+    private static final String USER_NOT_FOUND = "User with ID: {} not found.";
+
     public UserService(UserRepository userRepository, DtoHelperClass dtoHelper) {
         this.userRepository = userRepository;
         this.dtoHelper = dtoHelper;
@@ -31,10 +32,11 @@ public class UserService {
 
     public List<PostDTO> getAllPosts(ObjectId userId) {
         logger.info("Fetching all posts for user ID: {}", userId);
+
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> {
-                    logger.error("User with ID {} not found.", userId);
-                    return new IllegalArgumentException("User not found");
+                    logger.error(USER_NOT_FOUND, userId);
+                    return new UserNotFoundException("User not found");
                 });
 
         List<PostDTO> posts = user.getPosts().stream()
@@ -47,9 +49,10 @@ public class UserService {
 
     public UserProfileDto getUserProfile(ObjectId userId) {
         logger.info("Fetching profile for user ID: {}", userId);
+
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> {
-            logger.error("User with ID {} not found.", userId);
-            return new IllegalArgumentException("User not found");
+            logger.error(USER_NOT_FOUND, userId);
+            return new UserNotFoundException("User not found");
         });
 
         UserProfileDto userProfile = new UserProfileDto(

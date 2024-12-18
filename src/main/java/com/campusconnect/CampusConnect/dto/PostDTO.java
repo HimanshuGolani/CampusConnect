@@ -2,7 +2,6 @@ package com.campusconnect.CampusConnect.dto;
 
 import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mongodb.internal.thread.DaemonThreadFactory;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

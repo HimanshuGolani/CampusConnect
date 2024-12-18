@@ -13,6 +13,7 @@ public class WebConfig {
     @Bean
     public WebMvcConfigurer corsConfig(){
         return new WebMvcConfigurer(){
+            @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
                         .allowedOrigins("https://campusconnect-0o3k.onrender.com","http://localhost:5173/")

@@ -1,7 +1,6 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.PostDTO;
-import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.dto.UserProfileDto;
 import com.campusconnect.CampusConnect.service.UserService;
 import org.bson.types.ObjectId;
@@ -21,8 +20,6 @@ public class UserController {
         this.userService=userService;
     }
 
-
-//  get all the post feed
     @GetMapping("/myPosts/{userId}")
     public ResponseEntity<?> getAllUsersPosts(@PathVariable ObjectId userId){
         try{

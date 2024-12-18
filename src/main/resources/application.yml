@@ -5,10 +5,13 @@ spring:
     mongodb:
       uri: mongodb+srv://campusconnectteamcommon:zOrDZ5F6yUxR98kU@campusconnect.d2vm8.mongodb.net/CampusConnect?retryWrites=true&w=majority&appName=CampusConnect
       auto-index-creation: true
-
-
+  security:
+    user:
+      name: user1
+      password: password
 server:
   port: 8080
+
 
 
 #logger:
