@@ -1,10 +1,13 @@
 package com.campusconnect.CampusConnect.scrapper;
 
+import com.campusconnect.CampusConnect.cache.AppCache;
+import com.campusconnect.CampusConnect.repositories.ConfigCampusConnectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,9 +18,13 @@ import java.util.Map;
 @Service
 public class CompanyDetailsScrapperService {
 
+    @Autowired
+    private AppCache appCache;
+
+
     public Map<String, String> getCompanyDetailsFromWikipedia(String companyName) {
         Map<String, String> companyDetails = new HashMap<>();
-        String url = "https://en.wikipedia.org/wiki/" + companyName;
+        String url = appCache.APP_CACHE.get(AppCache.KEYS.SCRAPPING_LINK.toString()) + companyName;
 
         try {
             Document document = Jsoup.connect(url)

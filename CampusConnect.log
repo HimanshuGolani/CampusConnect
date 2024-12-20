@@ -1,96 +1,501 @@
-20:02:11.102 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
-20:02:11.180 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 23528 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
-20:02:11.180 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
-20:02:11.180 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
-20:02:11.840 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
-20:02:11.903 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 6 MongoDB repository interfaces. 
-20:02:12.408 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
-20:02:12.420 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
-20:02:12.422 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
-20:02:12.423 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
-20:02:12.478 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
-20:02:12.478 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1258 ms 
-20:02:12.720 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
-20:02:12.728 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1c046c92, com.mongodb.Jep395RecordCodecProvider@27960b1e, com.mongodb.KotlinCodecProvider@643ba1ed]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
-20:02:12.751 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
-20:02:12.754 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
-20:02:13.207 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
-20:02:13.385 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=363710900, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cc5c638f0a56955f4004, counter=5}, lastWriteDate=Wed Dec 18 20:02:12 IST 2024, lastUpdateTimeNanos=1572817183755100} 
-20:02:13.385 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=367906200, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000095, setVersion=163, topologyVersion=TopologyVersion{processId=6762ca21f5baabe89f0ddebb, counter=9}, lastWriteDate=Wed Dec 18 20:02:12 IST 2024, lastUpdateTimeNanos=1572817183755200} 
-20:02:13.385 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=365012000, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cb0c4caf49bad49244a1, counter=5}, lastWriteDate=Wed Dec 18 20:02:12 IST 2024, lastUpdateTimeNanos=1572817183755100} 
-20:02:13.388 [cluster-ClusterId{value='6762dcecbd0d0019b6cba5f4', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000095 and max set version 163 
-20:02:15.030 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
-20:02:15.043 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
-20:02:15.051 [main] INFO  c.c.C.CampusConnectApplication - Started CampusConnectApplication in 4.217 seconds (process running for 4.686) 
-20:02:20.919 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
-20:02:20.920 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
-20:02:20.921 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms 
-20:02:20.949 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported] 
-20:02:26.374 [http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported] 
-20:03:40.173 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
-20:03:40.217 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 18200 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
-20:03:40.218 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
-20:03:40.218 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
-20:03:40.882 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
-20:03:40.945 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 6 MongoDB repository interfaces. 
-20:03:41.462 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
-20:03:41.472 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
-20:03:41.474 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
-20:03:41.475 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
-20:03:41.521 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
-20:03:41.522 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1267 ms 
-20:03:41.740 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
-20:03:41.749 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@4bf03fee, com.mongodb.Jep395RecordCodecProvider@31834a2b, com.mongodb.KotlinCodecProvider@44f0ff2b]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
-20:03:41.766 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
-20:03:41.768 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
-20:03:42.211 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
-20:03:42.403 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=400285900, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cc5c638f0a56955f4004, counter=5}, lastWriteDate=Wed Dec 18 20:03:41 IST 2024, lastUpdateTimeNanos=1572906203160300} 
-20:03:42.403 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=398676900, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000095, setVersion=163, topologyVersion=TopologyVersion{processId=6762ca21f5baabe89f0ddebb, counter=9}, lastWriteDate=Wed Dec 18 20:03:41 IST 2024, lastUpdateTimeNanos=1572906203160200} 
-20:03:42.403 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=396335800, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cb0c4caf49bad49244a1, counter=5}, lastWriteDate=Wed Dec 18 20:03:41 IST 2024, lastUpdateTimeNanos=1572906203160300} 
-20:03:42.407 [cluster-ClusterId{value='6762dd458b555c04810ef443', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000095 and max set version 163 
-20:03:43.850 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
-20:03:43.863 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
-20:03:43.872 [main] INFO  c.c.C.CampusConnectApplication - Started CampusConnectApplication in 3.977 seconds (process running for 4.457) 
-20:03:46.062 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
-20:03:46.063 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
-20:03:46.065 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms 
-20:03:46.092 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported] 
-20:04:29.917 [http-nio-8080-exec-3] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
-20:04:29.917 [http-nio-8080-exec-3] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
-20:04:52.381 [http-nio-8080-exec-5] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
-20:04:52.381 [http-nio-8080-exec-5] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
-20:05:10.765 [http-nio-8080-exec-6] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt 
-20:05:10.765 [http-nio-8080-exec-6] WARN  c.c.C.service.AuthService - Incorrect password for user with email: himanshu@gmail.com 
-20:05:36.075 [http-nio-8080-exec-9] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt 
-20:05:36.075 [http-nio-8080-exec-9] WARN  c.c.C.service.AuthService - Incorrect password for user with email: himanshu@gmail.com 
-20:09:28.217 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
-20:09:28.263 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 7544 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
-20:09:28.264 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
-20:09:28.265 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
-20:09:28.958 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
-20:09:29.021 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 6 MongoDB repository interfaces. 
-20:09:29.538 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
-20:09:29.555 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
-20:09:29.558 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
-20:09:29.558 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
-20:09:29.611 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
-20:09:29.611 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1306 ms 
-20:09:29.853 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
-20:09:29.856 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@412ebe64, com.mongodb.Jep395RecordCodecProvider@6f731759, com.mongodb.KotlinCodecProvider@1f84327b]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
-20:09:29.878 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
-20:09:29.880 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
-20:09:30.321 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
-20:09:30.494 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=391820300, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cc5c638f0a56955f4004, counter=5}, lastWriteDate=Wed Dec 18 20:09:29 IST 2024, lastUpdateTimeNanos=1573254292255900} 
-20:09:30.494 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=388500000, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000095, setVersion=163, topologyVersion=TopologyVersion{processId=6762ca21f5baabe89f0ddebb, counter=9}, lastWriteDate=Wed Dec 18 20:09:29 IST 2024, lastUpdateTimeNanos=1573254292256000} 
-20:09:30.495 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=390880900, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=163, topologyVersion=TopologyVersion{processId=6762cb0c4caf49bad49244a1, counter=5}, lastWriteDate=Wed Dec 18 20:09:29 IST 2024, lastUpdateTimeNanos=1573254292255900} 
-20:09:30.498 [cluster-ClusterId{value='6762dea196c147049cb6e1f8', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000095 and max set version 163 
-20:09:32.041 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
-20:09:32.050 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
-20:09:32.060 [main] INFO  c.c.C.CampusConnectApplication - Started CampusConnectApplication in 4.137 seconds (process running for 4.626) 
-20:09:39.485 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
-20:09:39.485 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
-20:09:39.485 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms 
-20:09:39.862 [http-nio-8080-exec-1] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt 
-20:09:39.862 [http-nio-8080-exec-1] WARN  c.c.C.service.AuthService - Incorrect password for user with email: himanshu@gmail.com 
-20:09:52.039 [http-nio-8080-exec-2] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
-20:09:52.039 [http-nio-8080-exec-2] INFO  c.c.C.service.AuthService - User logged in successfully: dev@gmail.com 
+10:43:38.535 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
+10:43:38.691 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 20968 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
+10:43:38.691 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
+10:43:38.695 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
+10:43:39.986 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
+10:43:40.095 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 105 ms. Found 7 MongoDB repository interfaces. 
+10:43:41.176 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+10:43:41.196 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+10:43:41.202 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:43:41.202 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
+10:43:41.346 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:43:41.346 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2577 ms 
+10:43:41.716 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
+10:43:41.736 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1f84327b, com.mongodb.Jep395RecordCodecProvider@39549f33, com.mongodb.KotlinCodecProvider@dbddbe3]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
+10:43:41.773 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
+10:43:41.777 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
+10:43:42.529 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
+10:43:42.770 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=612275700, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=676358c8f5d3258a302e5a15, counter=4}, lastWriteDate=Thu Dec 19 10:43:42 IST 2024, lastUpdateTimeNanos=1625709569322800} 
+10:43:42.772 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=607949700, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000097, setVersion=166, topologyVersion=TopologyVersion{processId=676357e95491b2d6d0a8ddef, counter=6}, lastWriteDate=Thu Dec 19 10:43:42 IST 2024, lastUpdateTimeNanos=1625709569329400} 
+10:43:42.772 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=606350400, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=67635a108bf5c093ee4504b3, counter=3}, lastWriteDate=Thu Dec 19 10:43:42 IST 2024, lastUpdateTimeNanos=1625709569322800} 
+10:43:42.776 [cluster-ClusterId{value='6763ab8599c8f879bfdaeb6a', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000097 and max set version 166 
+10:43:43.946 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'appCache': Invocation of init method failed 
+10:43:44.166 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:43:44.216 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+10:43:44.246 [main] ERROR o.s.boot.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'appCache': Invocation of init method failed
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:222)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:422)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1798)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.campusconnect.CampusConnect.CampusConnectApplication.main(CampusConnectApplication.java:14)
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.Map.put(Object, Object)" because "this.APP_CACHE" is null
+	at com.campusconnect.CampusConnect.cache.AppCache.inti(AppCache.java:24)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:401)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:219)
+	... 18 common frames omitted
+10:44:05.366 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
+10:44:05.474 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 22796 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
+10:44:05.474 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
+10:44:05.474 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
+10:44:06.727 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
+10:44:06.835 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 101 ms. Found 7 MongoDB repository interfaces. 
+10:44:07.721 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+10:44:07.736 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+10:44:07.738 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:44:07.738 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
+10:44:07.852 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:44:07.852 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2304 ms 
+10:44:08.236 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
+10:44:08.267 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@46a795de, com.mongodb.Jep395RecordCodecProvider@256a0d95, com.mongodb.KotlinCodecProvider@2f3928ac]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
+10:44:08.282 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
+10:44:08.287 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
+10:44:09.243 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
+10:44:09.306 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=644411300, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=676358c8f5d3258a302e5a15, counter=4}, lastWriteDate=Thu Dec 19 10:44:09 IST 2024, lastUpdateTimeNanos=1625736104886100} 
+10:44:09.306 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=646615000, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=67635a108bf5c093ee4504b3, counter=3}, lastWriteDate=Thu Dec 19 10:44:09 IST 2024, lastUpdateTimeNanos=1625736104912100} 
+10:44:09.306 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=636597600, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000097, setVersion=166, topologyVersion=TopologyVersion{processId=676357e95491b2d6d0a8ddef, counter=6}, lastWriteDate=Thu Dec 19 10:44:09 IST 2024, lastUpdateTimeNanos=1625736104891900} 
+10:44:09.315 [cluster-ClusterId{value='6763aba05d64d00272d181f6', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000097 and max set version 166 
+10:44:11.718 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+10:44:11.766 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+10:44:11.777 [main] INFO  c.c.C.CampusConnectApplication - Started CampusConnectApplication in 6.871 seconds (process running for 7.688) 
+10:44:19.789 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+10:44:19.789 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+10:44:19.789 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms 
+10:44:19.862 [http-nio-8080-exec-1] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:44:20.568 [http-nio-8080-exec-2] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:15.228 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final 
+10:53:15.307 [main] INFO  c.c.C.CampusConnectApplication - Starting CampusConnectApplication using Java 21.0.5 with PID 3352 (D:\CampusConnect\target\classes started by Himasnhu Golani in D:\CampusConnect) 
+10:53:15.307 [main] DEBUG c.c.C.CampusConnectApplication - Running with Spring Boot v3.3.4, Spring v6.1.13 
+10:53:15.307 [main] INFO  c.c.C.CampusConnectApplication - No active profile set, falling back to 1 default profile: "default" 
+10:53:16.566 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode. 
+10:53:16.669 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 101 ms. Found 7 MongoDB repository interfaces. 
+10:53:17.530 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+10:53:17.550 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+10:53:17.556 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:53:17.558 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30] 
+10:53:17.638 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:53:17.638 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2259 ms 
+10:53:18.016 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-01.d2vm8.mongodb.net:27017 to client view of cluster 
+10:53:18.053 [main] INFO  org.mongodb.driver.client - MongoClient with metadata {"application": {"name": "CampusConnect"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='campusconnectteamcommon', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@dbddbe3, com.mongodb.Jep395RecordCodecProvider@7a83ccd2, com.mongodb.KotlinCodecProvider@44aa2e13]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=campusconnect.d2vm8.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-z84o76-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='CampusConnect', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null} 
+10:53:18.071 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-02.d2vm8.mongodb.net:27017 to client view of cluster 
+10:53:18.075 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-srv-campusconnect.d2vm8.mongodb.net] INFO  org.mongodb.driver.cluster - Adding discovered server campusconnect-shard-00-00.d2vm8.mongodb.net:27017 to client view of cluster 
+10:53:18.926 [main] INFO  org.mongodb.driver.cluster - Waiting for server to become available for operation with ID 7. Remaining time: 30000 ms. Selector: WritableServerSelector, topology description: {type=REPLICA_SET, servers=[{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, {address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]. 
+10:53:18.983 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-campusconnect-shard-00-00.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=526823000, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-00.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=676358c8f5d3258a302e5a15, counter=4}, lastWriteDate=Thu Dec 19 10:53:19 IST 2024, lastUpdateTimeNanos=1626285781406000} 
+10:53:18.983 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=529401200, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-02.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000097, setVersion=166, topologyVersion=TopologyVersion{processId=676357e95491b2d6d0a8ddef, counter=6}, lastWriteDate=Thu Dec 19 10:53:19 IST 2024, lastUpdateTimeNanos=1626285781341400} 
+10:53:18.983 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-campusconnect-shard-00-01.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=524571300, setName='atlas-z84o76-shard-0', canonicalAddress=campusconnect-shard-00-01.d2vm8.mongodb.net:27017, hosts=[campusconnect-shard-00-00.d2vm8.mongodb.net:27017, campusconnect-shard-00-01.d2vm8.mongodb.net:27017, campusconnect-shard-00-02.d2vm8.mongodb.net:27017], passives=[], arbiters=[], primary='campusconnect-shard-00-02.d2vm8.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='aps1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_SOUTH_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=166, topologyVersion=TopologyVersion{processId=67635a108bf5c093ee4504b3, counter=3}, lastWriteDate=Thu Dec 19 10:53:19 IST 2024, lastUpdateTimeNanos=1626285781372100} 
+10:53:18.991 [cluster-ClusterId{value='6763adc572b94318ec150fc2', description='CampusConnect'}-campusconnect-shard-00-02.d2vm8.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary campusconnect-shard-00-02.d2vm8.mongodb.net:27017 with max election id 7fffffff0000000000000097 and max set version 166 
+10:53:21.399 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+10:53:21.427 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+10:53:21.440 [main] INFO  c.c.C.CampusConnectApplication - Started CampusConnectApplication in 6.724 seconds (process running for 7.576) 
+10:53:30.536 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+10:53:30.536 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+10:53:30.536 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms 
+10:53:30.616 [http-nio-8080-exec-1] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:31.244 [http-nio-8080-exec-2] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:36.657 [http-nio-8080-exec-5] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:37.139 [http-nio-8080-exec-6] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:39.515 [http-nio-8080-exec-10] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:39.975 [http-nio-8080-exec-9] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:41.844 [http-nio-8080-exec-1] ERROR c.c.C.s.CompanyDetailsScrapperService - Failed to fetch Wikipedia details for: as dfsd fsd, URL: https://en.wikipedia.org/wiki/as dfsd fsd 
+org.jsoup.HttpStatusException: HTTP error fetching URL. Status=404, URL=[https://en.wikipedia.org/wiki/As_dfsd_fsd]
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:891)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:888)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:830)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:351)
+	at org.jsoup.helper.HttpConnection.get(HttpConnection.java:336)
+	at com.campusconnect.CampusConnect.scrapper.CompanyDetailsScrapperService.getCompanyDetailsFromWikipedia(CompanyDetailsScrapperService.java:34)
+	at com.campusconnect.CampusConnect.controller.CompanyController.getCompanyDetails(CompanyController.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+10:53:41.852 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Failed to scrape Wikipedia data for as dfsd fsd] with root cause 
+java.lang.RuntimeException: Failed to scrape Wikipedia data for as dfsd fsd
+	at com.campusconnect.CampusConnect.scrapper.CompanyDetailsScrapperService.getCompanyDetailsFromWikipedia(CompanyDetailsScrapperService.java:64)
+	at com.campusconnect.CampusConnect.controller.CompanyController.getCompanyDetails(CompanyController.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+10:53:42.198 [http-nio-8080-exec-2] ERROR c.c.C.s.CompanyDetailsScrapperService - Failed to fetch Wikipedia details for: as dfsd fsd, URL: https://en.wikipedia.org/wiki/as dfsd fsd 
+org.jsoup.HttpStatusException: HTTP error fetching URL. Status=404, URL=[https://en.wikipedia.org/wiki/As_dfsd_fsd]
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:891)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:888)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:830)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:351)
+	at org.jsoup.helper.HttpConnection.get(HttpConnection.java:336)
+	at com.campusconnect.CampusConnect.scrapper.CompanyDetailsScrapperService.getCompanyDetailsFromWikipedia(CompanyDetailsScrapperService.java:34)
+	at com.campusconnect.CampusConnect.controller.CompanyController.getCompanyDetails(CompanyController.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+10:53:42.198 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Failed to scrape Wikipedia data for as dfsd fsd] with root cause 
+java.lang.RuntimeException: Failed to scrape Wikipedia data for as dfsd fsd
+	at com.campusconnect.CampusConnect.scrapper.CompanyDetailsScrapperService.getCompanyDetailsFromWikipedia(CompanyDetailsScrapperService.java:64)
+	at com.campusconnect.CampusConnect.controller.CompanyController.getCompanyDetails(CompanyController.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+10:53:43.934 [http-nio-8080-exec-3] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
+10:53:44.438 [http-nio-8080-exec-4] INFO  c.c.C.service.UniversityService - Fetching all companies visiting for university ID: 6757c6f6bfcc426c64fcf87c 
