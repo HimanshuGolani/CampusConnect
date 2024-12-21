@@ -3,11 +3,13 @@ package com.campusconnect.CampusConnect.service;
 import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.enums.RedisKeys;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ public class AuthService {
     private final UniversityRepository universityRepository;
     private final DtoHelperClass dtoHelper;
     private final PasswordEncoder passwordEncoder;
+    private final RedisService redisService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
@@ -32,11 +35,13 @@ public class AuthService {
     private static final String USER_NOT_FOUND = "User with email: {} not found.";
     private static final String UNIVERSITY_LOGIN_FAILED = "University login failed for email: {}";
 
-    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper, PasswordEncoder passwordEncoder) {
+    @Autowired
+    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper, PasswordEncoder passwordEncoder,RedisService redisService) {
         this.userRepository = userRepository;
         this.universityRepository = universityRepository;
         this.dtoHelper = dtoHelper;
         this.passwordEncoder = passwordEncoder;
+        this.redisService=redisService;
     }
 
     @Transactional
@@ -54,6 +59,7 @@ public class AuthService {
             university.setAllStudents(allStudents);
             userRepository.save(userEntity);
             universityRepository.save(university);
+            redisService.removeCache(RedisKeys.LIST_OF_STUDENTS_OF.toString()+userData.getUniversityId());
             logger.info("User signed up successfully: {} in University ID: {}", userData.getEmail(), userData.getUniversityId());
         } else {
             logger.error(UNIVERSITY_NOT_FOUND, userData.getUniversityId());
@@ -71,14 +77,11 @@ public class AuthService {
             return loginResponse;
         }
 
-        if (passwordEncoder.matches(userData.getPassword(), user.get().getPassword())) { // Compare encrypted password
+        if (passwordEncoder.matches(userData.getPassword(), user.get().getPassword())) {
             loginResponse.setLoginStatus(true);
             loginResponse.setUserName(user.get().getUserName());
             loginResponse.setId(user.get().getId());
             loginResponse.setUniversityId(user.get().getUniversityId());
-            logger.info("User logged in successfully: {}", userData.getEmail());
-
-
             logger.info("User logged in successfully: {}", userData.getEmail());
         } else {
             loginResponse.setLoginStatus(false);
@@ -97,7 +100,7 @@ public class AuthService {
             return loginResponse;
         }
 
-        if (passwordEncoder.matches(universityData.getPassword(), university.get().getPassword())) { // Compare encrypted password
+        if (passwordEncoder.matches(universityData.getPassword(), university.get().getPassword())) {
             loginResponse.setLogin_Status(true);
             loginResponse.setId(university.get().getId());
             loginResponse.setUniversityName(university.get().getNameOfUniversity());
@@ -112,8 +115,9 @@ public class AuthService {
     @Transactional
     public void universitySignUp(@Valid UniversityDTO universityData) {
         UniversityEntity universityEntity = dtoHelper.UniversityEntityToDtoMapper(universityData);
-        universityEntity.setPassword(passwordEncoder.encode(universityData.getPassword())); // Encrypt password
+        universityEntity.setPassword(passwordEncoder.encode(universityData.getPassword()));
         universityRepository.save(universityEntity);
+        redisService.removeCache(RedisKeys.UNIVERSITY_LIST.toString());
         logger.info("University signed up successfully: {}", universityData.getNameOfUniversity());
     }
 }

@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.scrapper.CompanyDetailsScrapperService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class CompanyController {
 
     // Endpoint to fetch company details from Wikipedia
     @GetMapping("/details")
-    public Map<String, String> getCompanyDetails(@RequestParam("name") String companyName) {
+    public Map<String, String> getCompanyDetails(@RequestParam("name") String companyName) throws JsonProcessingException {
         return scrapperService.getCompanyDetailsFromWikipedia(companyName);
     }
 }

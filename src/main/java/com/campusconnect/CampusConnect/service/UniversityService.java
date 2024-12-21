@@ -4,6 +4,7 @@ import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.entity.CompanyEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.enums.RedisKeys;
 import com.campusconnect.CampusConnect.repositories.CompanyRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
@@ -13,6 +14,8 @@ import com.campusconnect.CampusConnect.exception.UserNotFoundException;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,9 @@ public class UniversityService {
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
     private final DtoHelperClass dtoHelper;
+
+    @Autowired
+    private RedisService redisService;
 
     private static final Logger logger = LoggerFactory.getLogger(UniversityService.class);
 
@@ -42,18 +48,35 @@ public class UniversityService {
         this.dtoHelper = dtoHelper;
     }
 
+
     public List<UniversityNameListDTO> getAllUniversities() {
         logger.info("Fetching all universities.");
-        return universityRepository.findAllNamesOfUniversity();
+        List<UniversityNameListDTO> cacheList = redisService.get(RedisKeys.UNIVERSITY_LIST.toString(),List.class);
+        if(cacheList != null){
+            return cacheList;
+        }
+        else {
+            List<UniversityNameListDTO> universityList = universityRepository.findAllNamesOfUniversity();
+            redisService.set(RedisKeys.UNIVERSITY_LIST.toString(),universityList,6L);
+            return universityList;
+        }
     }
 
     public List<UserDTO> findAllStudents(ObjectId universityId) {
         logger.info("Fetching all students for university ID: {}", universityId);
-        return universityRepository.findById(universityId)
-                .map(university -> university.getAllStudents().stream()
-                        .map(dtoHelper::mapToUserDTO)
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        List<UserDTO> chacheUsersList = redisService.get(RedisKeys.LIST_OF_STUDENTS_OF.toString()+universityId,List.class);
+        if(chacheUsersList != null){
+            return chacheUsersList;
+        }
+        else {
+            List<UserDTO> userDTOS =  universityRepository.findById(universityId)
+                    .map(university -> university.getAllStudents().stream()
+                            .map(dtoHelper::mapToUserDTO)
+                            .collect(Collectors.toList()))
+                    .orElse(Collections.emptyList());
+           redisService.set(RedisKeys.LIST_OF_STUDENTS_OF.toString()+universityId,userDTOS,24L);
+            return userDTOS;
+        }
     }
 
     @Transactional

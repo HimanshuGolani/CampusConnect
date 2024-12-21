@@ -1,7 +1,8 @@
 package com.campusconnect.CampusConnect.scrapper;
 
 import com.campusconnect.CampusConnect.cache.AppCache;
-import com.campusconnect.CampusConnect.repositories.ConfigCampusConnectRepository;
+import com.campusconnect.CampusConnect.service.RedisService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,8 +22,16 @@ public class CompanyDetailsScrapperService {
     @Autowired
     private AppCache appCache;
 
+    @Autowired
+    private RedisService redisService;
 
-    public Map<String, String> getCompanyDetailsFromWikipedia(String companyName) {
+
+    public Map<String, String> getCompanyDetailsFromWikipedia(String companyName) throws JsonProcessingException {
+
+        Map<String,String> cahcehMap = redisService.get("details_of_company_"+companyName,HashMap.class);
+        if(cahcehMap != null){
+            return cahcehMap;
+        }
         Map<String, String> companyDetails = new HashMap<>();
         String url = appCache.APP_CACHE.get(AppCache.KEYS.SCRAPPING_LINK.toString()) + companyName;
 
@@ -63,7 +72,7 @@ public class CompanyDetailsScrapperService {
             log.error("Failed to fetch Wikipedia details for: {}, URL: {}", companyName, url, e);
             throw new RuntimeException("Failed to scrape Wikipedia data for " + companyName);
         }
-
+        redisService.set("details_of_company_"+companyName, companyDetails, 24L);
         return companyDetails;
     }
 }
