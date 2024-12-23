@@ -1,11 +1,15 @@
 package com.campusconnect.CampusConnect.controller;
 
 import com.campusconnect.CampusConnect.dto.CompanyDTO;
+import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UniversityNameListDTO;
 import com.campusconnect.CampusConnect.dto.UserDTO;
+import com.campusconnect.CampusConnect.service.PostService;
 import com.campusconnect.CampusConnect.service.UniversityService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +21,11 @@ import java.util.List;
 public class UniversityController {
 
     private final UniversityService universityService;
-    public UniversityController(UniversityService universityService){
+    private final PostService postService;
+    @Autowired
+    public UniversityController(UniversityService universityService,PostService postService){
         this.universityService = universityService;
+        this.postService=postService;
     }
 
     @GetMapping("/universityList")
@@ -39,6 +46,17 @@ public class UniversityController {
         }
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/createPost/{universityId}")
+    public ResponseEntity<?> createUniversityPost(@Valid @PathVariable ObjectId universityId,@Valid @RequestBody PostDTO postDTO){
+        try{
+            postService.createUniversityPost(universityId,postDTO);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

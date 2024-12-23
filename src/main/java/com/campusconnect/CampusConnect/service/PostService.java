@@ -80,6 +80,36 @@ public class PostService {
         }
     }
 
+    @Transactional
+    public void createUniversityPost(ObjectId universityId, PostDTO postDTO) {
+        try {
+            Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(universityId);
+            System.out.println(universityEntityOptional.get());
+            if (universityEntityOptional.isPresent()) {
+                UniversityEntity universityEntity = universityEntityOptional.get();
+
+                PostEntity post = dtoHelper.PostDtoToObjectMapping(postDTO);
+
+                post.setUsersId(universityId);
+                post.setUniversityId(universityId);
+
+                universityEntity.getUniversityPosts().add(post);
+                universityEntity.getUniversityRelatedPosts().add(post);
+
+                postRepository.save(post);
+                universityRepository.save(universityEntity);
+            } else {
+                logger.error("University not found during post creation: {}", universityId);
+                throw new UniversityNotFoundException("University not found during post creation.");
+            }
+        } catch (UniversityNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("An error occurred while creating a post for university {}: {}", universityId, e.getMessage());
+            throw new RuntimeException("Error occurred while creating university post.", e);
+        }
+    }
+
     // Getting a post by post ID
     public PostEntity getPostById(ObjectId postId) {
         logger.info("Fetching post with ID: {}", postId);

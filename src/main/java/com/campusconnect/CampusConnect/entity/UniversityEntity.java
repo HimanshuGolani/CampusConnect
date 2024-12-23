@@ -61,6 +61,9 @@ public class UniversityEntity {
     @DBRef(lazy = false)
     private Set<CompanyEntity> companyList =  new HashSet<>();
 
+    @DBRef
+    private List<PostEntity> universityPosts = new ArrayList<>();
+
 
     @DBRef
     private List<PostEntity> universityRelatedPosts = new ArrayList<>();
