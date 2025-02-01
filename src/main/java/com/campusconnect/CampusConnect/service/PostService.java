@@ -6,12 +6,14 @@ import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.exception.BadContentException;
 import com.campusconnect.CampusConnect.repositories.PostRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
 import com.campusconnect.CampusConnect.exception.PostNotFoundException;
 import com.campusconnect.CampusConnect.exception.UserNotFoundException;
 import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
+import com.campusconnect.CampusConnect.util.BlogChecker;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +51,11 @@ public class PostService {
     // Creating a post
     @Transactional
     public void createPost(ObjectId userId, PostDTO postData) {
-        try {
+
             logger.info("Attempting to create post for user ID: {}", userId);
+            if(!BlogChecker.checkTheContent(postData)){
+                throw new BadContentException("You have used bad words in the content please rewrite the content and try again");
+            }
             Optional<UserEntity> userOpt = userRepository.findById(userId);
             if (userOpt.isPresent()) {
                 UserEntity user = userOpt.get();
@@ -74,10 +79,6 @@ public class PostService {
                 logger.error(USER_NOT_FOUND, userId);
                 throw new UserNotFoundException("User not found.");
             }
-        } catch (Exception e) {
-            logger.error("Error occurred while creating post for user ID: {}", userId, e);
-            throw new RuntimeException("An error occurred while saving the post.", e);
-        }
     }
 
     @Transactional
