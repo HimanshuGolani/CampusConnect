@@ -6,6 +6,7 @@ import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.campusconnect.CampusConnect.entity.PostEntity;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.enums.EmailType;
 import com.campusconnect.CampusConnect.exception.BadContentException;
 import com.campusconnect.CampusConnect.repositories.PostRepository;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
@@ -33,6 +34,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UniversityRepository universityRepository;
     private final DtoHelperClass dtoHelper;
+    private final EmailService emailService;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
@@ -41,11 +43,12 @@ public class PostService {
     private static final String USER_NOT_FOUND = "User not found with ID: {}";
     private static final String UNIVERSITY_NOT_FOUND = "University not found with ID: {}";
 
-    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper) {
+    public PostService(UserRepository userRepository, PostRepository postRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper,EmailService emailService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.universityRepository = universityRepository;
         this.dtoHelper = dtoHelper;
+        this.emailService=emailService;
     }
 
     // Creating a post
@@ -85,7 +88,6 @@ public class PostService {
     public void createUniversityPost(ObjectId universityId, PostDTO postDTO) {
         try {
             Optional<UniversityEntity> universityEntityOptional = universityRepository.findById(universityId);
-            System.out.println(universityEntityOptional.get());
             if (universityEntityOptional.isPresent()) {
                 UniversityEntity universityEntity = universityEntityOptional.get();
 
@@ -99,6 +101,15 @@ public class PostService {
 
                 postRepository.save(post);
                 universityRepository.save(universityEntity);
+                List<String> studentEmails = universityEntity.getAllStudents()
+                        .stream()
+                        .map(UserEntity::getEmail)
+                        .collect(Collectors.toList());
+                emailService.sendMail(
+                        EmailType.POST_NOTIFIER,
+                        studentEmails.toArray(String[]::new),
+                        "Student",
+                        universityEntity.getNameOfUniversity());
             } else {
                 logger.error("University not found during post creation: {}", universityId);
                 throw new UniversityNotFoundException("University not found during post creation.");

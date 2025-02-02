@@ -3,6 +3,7 @@ package com.campusconnect.CampusConnect.service;
 import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
+import com.campusconnect.CampusConnect.enums.EmailType;
 import com.campusconnect.CampusConnect.enums.RedisKeys;
 import com.campusconnect.CampusConnect.repositories.UniversityRepository;
 import com.campusconnect.CampusConnect.repositories.UserRepository;
@@ -27,6 +28,7 @@ public class AuthService {
     private final DtoHelperClass dtoHelper;
     private final PasswordEncoder passwordEncoder;
     private final RedisService redisService;
+    private final EmailService emailService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
@@ -36,12 +38,13 @@ public class AuthService {
     private static final String UNIVERSITY_LOGIN_FAILED = "University login failed for email: {}";
 
     @Autowired
-    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper, PasswordEncoder passwordEncoder,RedisService redisService) {
+    public AuthService(UserRepository userRepository, UniversityRepository universityRepository, DtoHelperClass dtoHelper, PasswordEncoder passwordEncoder,RedisService redisService,EmailService emailService) {
         this.userRepository = userRepository;
         this.universityRepository = universityRepository;
         this.dtoHelper = dtoHelper;
         this.passwordEncoder = passwordEncoder;
         this.redisService=redisService;
+        this.emailService=emailService;
     }
 
     @Transactional
@@ -60,6 +63,8 @@ public class AuthService {
             userRepository.save(userEntity);
             universityRepository.save(university);
             redisService.removeCache(RedisKeys.LIST_OF_STUDENTS_OF.toString()+userData.getUniversityId());
+            emailService.sendMail(EmailType.WELCOME,new String[]{userData.getEmail()},userData.getUserName(),userData.getNameOfUniversity());
+
             logger.info("User signed up successfully: {} in University ID: {}", userData.getEmail(), userData.getUniversityId());
         } else {
             logger.error(UNIVERSITY_NOT_FOUND, userData.getUniversityId());
@@ -82,6 +87,7 @@ public class AuthService {
             loginResponse.setUserName(user.get().getUserName());
             loginResponse.setId(user.get().getId());
             loginResponse.setUniversityId(user.get().getUniversityId());
+
             logger.info("User logged in successfully: {}", userData.getEmail());
         } else {
             loginResponse.setLoginStatus(false);
@@ -118,6 +124,7 @@ public class AuthService {
         universityEntity.setPassword(passwordEncoder.encode(universityData.getPassword()));
         universityRepository.save(universityEntity);
         redisService.removeCache(RedisKeys.UNIVERSITY_LIST.toString());
+        emailService.sendMail(EmailType.WELCOME, new String[]{universityData.getEmail()},universityData.getNameOfUniversity());
         logger.info("University signed up successfully: {}", universityData.getNameOfUniversity());
     }
 }
