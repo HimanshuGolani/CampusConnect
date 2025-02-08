@@ -3,8 +3,13 @@ package com.campusconnect.CampusConnect.controller;
 import com.campusconnect.CampusConnect.dto.*;
 import com.campusconnect.CampusConnect.service.AuthService;
 import jakarta.validation.Valid;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
 
+//    private final AuthenticationManager authenticationManager;
     private final AuthService authService;
-    public AuthController(AuthService authService){
+    public AuthController(@Lazy AuthenticationManager authenticationManager, AuthService authService){
         this.authService = authService;
+//        this.authenticationManager=authenticationManager;
     }
 
     // User signup
@@ -32,6 +39,10 @@ public class AuthController {
     // User login
     @PostMapping("/user/login")
     public ResponseEntity<?> userLogin(@Valid @RequestBody LoginDTO userData) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(userData.getEmail(),userData.getPassword())
+//        );
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
         UserLoginDto data = authService.userLogin(userData);
         if (data.isLoginStatus()) {
             return ResponseEntity.status(200).body(data);

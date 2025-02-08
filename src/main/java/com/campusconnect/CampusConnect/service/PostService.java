@@ -200,6 +200,20 @@ public class PostService {
         return postRepository.findByCompanySpecificNameTAG_ListContainingIgnoreCase(tag);
     }
 
+    public List<PostDTO> findPostsRelatedToCompany(ObjectId universityId , String companyName){
+        UniversityEntity university = universityRepository.findById(universityId).orElseThrow(
+                () -> new UniversityNotFoundException("University not found during, finding posts related to a company")
+        );
+        System.out.println("The post are: "+university.getUniversityRelatedPosts().toString());
+
+        return university.getUniversityPosts().stream().filter(
+                post ->
+                        companyName.equalsIgnoreCase(post.getCompanySpecificNameTAG().toString())
+        )
+                .map(dtoHelper::PostObjToDTOMapping)
+        .toList();
+    }
+
     // Search posts by text (title, content, etc.)
     public List<PostEntity> searchPostsByText(String searchText) {
         logger.info("Searching posts by text: {}", searchText);

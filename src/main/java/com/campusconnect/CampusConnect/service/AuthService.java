@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.service;
 
 import com.campusconnect.CampusConnect.dto.*;
+import com.campusconnect.CampusConnect.entity.CustomPrincipal;
 import com.campusconnect.CampusConnect.entity.UniversityEntity;
 import com.campusconnect.CampusConnect.entity.UserEntity;
 import com.campusconnect.CampusConnect.enums.EmailType;
@@ -11,6 +12,9 @@ import com.campusconnect.CampusConnect.exception.UniversityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UniversityRepository universityRepository;
@@ -127,4 +131,23 @@ public class AuthService {
         emailService.sendMail(EmailType.WELCOME, new String[]{universityData.getEmail()},universityData.getNameOfUniversity());
         logger.info("University signed up successfully: {}", universityData.getNameOfUniversity());
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<UserEntity> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            return new CustomPrincipal(user.getEmail(), user.getPassword(), "USER");
+        }
+
+        Optional<UniversityEntity> universityOptional = universityRepository.findByEmail(email);
+        if (universityOptional.isPresent()) {
+            UniversityEntity university = universityOptional.get();
+            return new CustomPrincipal(university.getEmail(), university.getPassword(), "UNIVERSITY");
+        }
+
+        throw new UsernameNotFoundException("User not found with email: " + email);
+    }
+
+
 }

@@ -68,6 +68,8 @@ public class UniversityEntity {
     @DBRef
     private List<PostEntity> universityRelatedPosts = new ArrayList<>();
 
+    @DBRef
+    private List<Folder> useFullLinks = new ArrayList<>();
 
 }
 
