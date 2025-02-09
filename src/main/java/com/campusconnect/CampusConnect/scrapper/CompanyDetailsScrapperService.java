@@ -1,6 +1,7 @@
 package com.campusconnect.CampusConnect.scrapper;
 
 import com.campusconnect.CampusConnect.cache.AppCache;
+import com.campusconnect.CampusConnect.entity.COMPANY_NAME_TAG;
 import com.campusconnect.CampusConnect.service.RedisService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -25,8 +25,21 @@ public class CompanyDetailsScrapperService {
     @Autowired
     private RedisService redisService;
 
+    private Optional<COMPANY_NAME_TAG> findMostCommonName(String companyName){
+        List<COMPANY_NAME_TAG> companyNameList = Arrays.stream(COMPANY_NAME_TAG.values()).toList();
+        return companyNameList.stream().filter(
+                name -> name.getFullName().equalsIgnoreCase(companyName)
+        ).findFirst();
+
+    }
 
     public Map<String, String> getCompanyDetailsFromWikipedia(String companyName) throws JsonProcessingException {
+
+        String findCompany = companyName;
+
+        companyName = findMostCommonName(companyName)
+                .map(COMPANY_NAME_TAG::getFullName)
+                .orElse(findCompany);
 
         Map<String,String> cahcehMap = redisService.get("details_of_company_"+companyName,HashMap.class);
         if(cahcehMap != null){

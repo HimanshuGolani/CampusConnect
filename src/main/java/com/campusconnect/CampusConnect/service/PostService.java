@@ -204,13 +204,16 @@ public class PostService {
         UniversityEntity university = universityRepository.findById(universityId).orElseThrow(
                 () -> new UniversityNotFoundException("University not found during, finding posts related to a company")
         );
-        System.out.println("The post are: "+university.getUniversityRelatedPosts().toString());
+        System.out.println("The posts related to com[any "+ companyName);
+        university.getUniversityRelatedPosts().stream()
+                .filter(
+                        postEntity -> companyName.equalsIgnoreCase(postEntity.getCompanySpecificNameTAG().getFullName())
+                ).forEach(System.out::println);
 
-        return university.getUniversityPosts().stream().filter(
-                post ->
-                        companyName.equalsIgnoreCase(post.getCompanySpecificNameTAG().toString())
-        )
-                .map(dtoHelper::PostObjToDTOMapping)
+        return university.getUniversityRelatedPosts().stream()
+                .filter(
+                        postEntity -> companyName.equalsIgnoreCase(postEntity.getCompanySpecificNameTAG().getFullName())
+                ).map(dtoHelper::PostObjToDTOMapping)
         .toList();
     }
 

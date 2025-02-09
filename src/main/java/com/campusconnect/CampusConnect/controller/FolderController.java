@@ -18,11 +18,9 @@ import java.util.Optional;
 public class FolderController {
 
     private final FolderService folderService;
-    private final UniversityRepository universityRepository;
 
-    public FolderController(FolderService folderService,UniversityRepository universityRepository){
+    public FolderController(FolderService folderService){
         this.folderService=folderService;
-        this.universityRepository=universityRepository;
     }
 
 
@@ -35,7 +33,7 @@ public class FolderController {
 
     @GetMapping("/{universityId}")
     public ResponseEntity<?> getFolderByUniversity(@Valid @PathVariable ObjectId universityId) {
-        List<Folder> folders = folderService.getFolderById(universityId);
+        List<Folder> folders = folderService.getFoldersByUniversityId(universityId);
         return new ResponseEntity<>(folders,HttpStatus.OK);
     }
 
@@ -46,9 +44,9 @@ public class FolderController {
         return new ResponseEntity<>(folder,HttpStatus.CREATED);
     }
 
-    @PostMapping("/{universityId}/{folderId}/add-file")
-    public ResponseEntity<?> addFile(@Valid @PathVariable ObjectId universityId ,@Valid @PathVariable ObjectId folderId,@Valid @RequestBody File file) {
-        Folder folder = folderService.addFileToFolder(universityId,folderId, file);
+    @PostMapping("/{universityId}/{folderId}/add-link")
+    public ResponseEntity<?> addFile(@Valid @PathVariable ObjectId universityId ,@Valid @PathVariable ObjectId folderId,@RequestBody String link) {
+        Folder folder = folderService.addLinkToFolder(universityId,folderId, link);
         return new ResponseEntity<>(folder,HttpStatus.CREATED);
     }
 
