@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,4 +84,14 @@ public class UserService {
                 .roles("USER") // Customize roles or authorities
                 .build();
     }
+
+    @Transactional
+    public void addLeetCodeUserName(ObjectId userId,String userName){
+        UserEntity user = userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException("User not found while adding the profile")
+        );
+        user.setLeetCodeUserName(userName);
+        userRepository.save(user);
+    }
+
 }

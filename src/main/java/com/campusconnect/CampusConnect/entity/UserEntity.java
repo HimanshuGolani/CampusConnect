@@ -62,6 +62,8 @@ public class UserEntity {
     @DBRef
     private Map<ObjectId, ObjectId> allChats = new TreeMap<>();
 
+    private String leetCodeUserName;
+
     @Override
     public String toString() {
         return "UserEntity{" +

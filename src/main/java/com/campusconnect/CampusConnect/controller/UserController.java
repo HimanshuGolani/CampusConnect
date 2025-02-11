@@ -3,6 +3,7 @@ package com.campusconnect.CampusConnect.controller;
 import com.campusconnect.CampusConnect.dto.PostDTO;
 import com.campusconnect.CampusConnect.dto.UserProfileDto;
 import com.campusconnect.CampusConnect.service.UserService;
+import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,11 @@ public class UserController {
         }
     }
 
+    @PostMapping("/add/leetcode/{userId}/{userName}")
+    public ResponseEntity<?> addLeetcodeUserName(@Valid @PathVariable ObjectId userId ,@PathVariable String userName){
+        userService.addLeetCodeUserName(userId,userName);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
 
 }
