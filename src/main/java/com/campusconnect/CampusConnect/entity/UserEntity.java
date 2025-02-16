@@ -59,9 +59,6 @@ public class UserEntity {
     @DBRef
     private List<PostEntity> posts = new ArrayList<>();
 
-    @DBRef
-    private Map<ObjectId, ObjectId> allChats = new TreeMap<>();
-
     private String leetCodeUserName;
 
     @Override
