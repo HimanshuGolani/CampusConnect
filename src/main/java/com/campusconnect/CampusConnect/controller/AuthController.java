@@ -26,7 +26,7 @@ public class AuthController {
 
     // User signup
     @PostMapping("/user/signup")
-    public ResponseEntity<?> userSignUp(@Valid @RequestBody UserDTO userData) {
+    public ResponseEntity<?> userSignUp( @RequestBody UserDTO userData) {
         try{
             authService.userSignUp(userData);
             return new ResponseEntity<>(userData.getUserName() , HttpStatus.CREATED);

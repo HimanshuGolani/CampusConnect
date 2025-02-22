@@ -29,9 +29,10 @@ public class CompanyController {
 
     // Endpoint to fetch company details from Wikipedia
     @GetMapping("/details")
-    public ResponseEntity<?> getCompanyDetails(@RequestParam("name") String companyName ,@Valid @RequestParam("universityId") ObjectId universityId) throws JsonProcessingException {
-        System.out.println("Entered the get details"+ companyName + " "+ universityId);
-        Map<String, String> scrapperData = scrapperService.getCompanyDetailsFromWikipedia(companyName);
+    public ResponseEntity<?> getCompanyDetails(@RequestParam("name") String companyName ,@RequestParam("universityId") ObjectId universityId) throws JsonProcessingException {
+        System.out.println("Entered the get details "+ companyName + " "+ universityId);
+        Map<String, String> scrapperData = scrapperService.getCompanyDetails(companyName);
+        System.out.println(scrapperData);
         List<PostDTO> relatedPosts = postService.findPostsRelatedToCompany(universityId,companyName);
         System.out.println(scrapperData.toString());
         System.out.println(relatedPosts.toString());

@@ -8,12 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -25,67 +25,155 @@ public class CompanyDetailsScrapperService {
     @Autowired
     private RedisService redisService;
 
-    private Optional<COMPANY_NAME_TAG> findMostCommonName(String companyName){
-        List<COMPANY_NAME_TAG> companyNameList = Arrays.stream(COMPANY_NAME_TAG.values()).toList();
-        return companyNameList.stream().filter(
-                name -> name.getFullName().equalsIgnoreCase(companyName)
-        ).findFirst();
+    private final Map<String, COMPANY_NAME_TAG> companyNameMap;
 
+    public CompanyDetailsScrapperService() {
+        this.companyNameMap = Arrays.stream(COMPANY_NAME_TAG.values())
+                .collect(Collectors.toMap(
+                        COMPANY_NAME_TAG::getFullName,
+                        name -> name,
+                        (existing, replacement) -> existing)
+                );
     }
 
-    public Map<String, String> getCompanyDetailsFromWikipedia(String companyName) throws JsonProcessingException {
+    private Optional<COMPANY_NAME_TAG> findMostCommonName(String companyName) {
+        log.debug("Finding common name for company: {}", companyName);
+        return Optional.ofNullable(companyNameMap.get(companyName));
+    }
 
-        String findCompany = companyName;
+    public Map<String, String> getCompanyDetails(String companyName) throws JsonProcessingException {
+        if (companyName == null || companyName.trim().isEmpty()) {
+            log.error("Invalid company name provided.");
+            throw new IllegalArgumentException("Company name cannot be null or empty.");
+        }
+
+        log.info("Fetching company details for: {}", companyName);
+
+        String originalCompanyName = companyName.trim();
 
         companyName = findMostCommonName(companyName)
                 .map(COMPANY_NAME_TAG::getFullName)
-                .orElse(findCompany);
+                .orElse(companyName);
 
-        Map<String,String> cahcehMap = redisService.get("details_of_company_"+companyName,HashMap.class);
-        if(cahcehMap != null){
-            return cahcehMap;
+        log.debug("Mapped company name: {} -> {}", originalCompanyName, companyName);
+
+        String formattedCompanyName = companyName.replace(" ", "_");
+
+        Map<String, String> cacheMap = redisService.get("details_of_company_" + formattedCompanyName, HashMap.class);
+        if (cacheMap != null) {
+            log.info("Company details found in cache for: {}", companyName);
+            return cacheMap;
         }
+
+        log.debug("Company details not found in cache, attempting to fetch from Wikipedia.");
+
         Map<String, String> companyDetails = new HashMap<>();
-        String url = appCache.APP_CACHE.get(AppCache.KEYS.SCRAPPING_LINK.toString()) + companyName;
+        String wikipediaUrl = "https://en.wikipedia.org/wiki/" + formattedCompanyName;
 
         try {
-            Document document = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
-                    .timeout(10 * 1000) // Timeout after 10 seconds
-                    .referrer("http://www.google.com")
-                    .get();
-
-            // Extract the company infobox (generally on the right side of Wikipedia page)
-            Element infoBox = document.selectFirst(".infobox.vcard");
-
-            if (infoBox != null) {
-                Elements rows = infoBox.select("tr"); // Table rows
-
-                for (Element row : rows) {
-                    Elements header = row.select("th"); // Header cells
-                    Elements data = row.select("td");   // Data cells
-
-                    if (!header.isEmpty() && !data.isEmpty()) {
-                        String key = header.text().trim();
-                        String value = data.text().trim();
-                        companyDetails.put(key, value);
-                    }
-                }
-            } else {
-                log.warn("No infobox found for the company: {}", companyName);
-            }
-
-            // Optionally extract the first paragraph of the company description
-            Element description = document.selectFirst(".mw-parser-output > p");
-            if (description != null) {
-                companyDetails.put("Description", description.text());
-            }
-
+            companyDetails = fetchDetailsFromWikipedia(wikipediaUrl);
         } catch (IOException e) {
-            log.error("Failed to fetch Wikipedia details for: {}, URL: {}", companyName, url, e);
-            throw new RuntimeException("Failed to scrape Wikipedia data for " + companyName);
+            log.warn("Failed to fetch details from Wikipedia for: {}, attempting OpenCorporates.", companyName);
+            String openCorporatesUrl = "https://opencorporates.com/companies/search?q=" + companyName.replace(" ", "+");
+            try {
+                companyDetails = fetchDetailsFromOpenCorporates(openCorporatesUrl);
+            } catch (IOException ex) {
+                log.error("Failed to fetch details from OpenCorporates for: {}", companyName, ex);
+                throw new RuntimeException("Failed to scrape data for " + companyName + " from both Wikipedia and OpenCorporates.");
+            }
         }
-        redisService.set("details_of_company_"+companyName, companyDetails, 24L);
+
+        redisService.set("details_of_company_" + formattedCompanyName, companyDetails, 24L);
+        log.info("Company details successfully stored in cache for: {}", companyName);
+
+        return companyDetails;
+    }
+
+    private Map<String, String> fetchDetailsFromWikipedia(String url) throws IOException {
+        Map<String, String> companyDetails = new HashMap<>();
+
+        log.debug("Connecting to Wikipedia URL: {}", url);
+        Document document = Jsoup.connect(url)
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+                .timeout(10 * 1000)
+                .referrer("http://www.google.com")
+                .get();
+
+        log.debug("Successfully connected to Wikipedia page.");
+
+        Element infoBox = document.selectFirst(".infobox.vcard");
+
+        if (infoBox != null) {
+            log.debug("Infobox found, extracting data...");
+
+            infoBox.select("tr").forEach(row -> {
+                Element header = row.selectFirst("th");
+                Element data = row.selectFirst("td");
+
+                if (header != null && data != null) {
+                    String key = header.text().trim();
+                    String value = data.text().trim();
+                    companyDetails.put(key, value);
+                    log.debug("Extracted detail: {} -> {}", key, value);
+                }
+            });
+        } else {
+            log.warn("No infobox found on Wikipedia page.");
+        }
+
+        Element description = document.selectFirst(".mw-parser-output > p");
+        if (description != null) {
+            String descText = description.text().trim();
+            companyDetails.put("Description", descText);
+            log.debug("Extracted company description: {}", descText);
+        } else {
+            log.warn("No description found on Wikipedia page.");
+        }
+
+        return companyDetails;
+    }
+
+    private Map<String, String> fetchDetailsFromOpenCorporates(String url) throws IOException {
+        Map<String, String> companyDetails = new HashMap<>();
+
+        log.debug("Connecting to OpenCorporates URL: {}", url);
+        Document document = Jsoup.connect(url)
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+                .timeout(10 * 1000)
+                .referrer("http://www.google.com")
+                .get();
+
+        log.debug("Successfully connected to OpenCorporates search page.");
+
+        Element searchResult = document.selectFirst(".search-results .search-result");
+
+        if (searchResult != null) {
+            log.debug("Search result found, extracting data...");
+
+            Element companyNameElement = searchResult.selectFirst(".name a");
+            if (companyNameElement != null) {
+                companyDetails.put("Company Name", companyNameElement.text().trim());
+            }
+
+            Element jurisdiction = searchResult.selectFirst(".jurisdiction");
+            if (jurisdiction != null) {
+                companyDetails.put("Jurisdiction", jurisdiction.text().trim());
+            }
+
+            Element companyNumber = searchResult.selectFirst(".company-number");
+            if (companyNumber != null) {
+                companyDetails.put("Company Number", companyNumber.text().trim());
+            }
+
+            Element status = searchResult.selectFirst(".status");
+            if (status != null) {
+                companyDetails.put("Status", status.text().trim());
+            }
+
+        } else {
+            log.warn("No search results found on OpenCorporates.");
+        }
+
         return companyDetails;
     }
 }

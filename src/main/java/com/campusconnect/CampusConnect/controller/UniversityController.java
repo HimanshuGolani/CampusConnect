@@ -7,7 +7,6 @@ import com.campusconnect.CampusConnect.dto.UserDTO;
 import com.campusconnect.CampusConnect.service.PostService;
 import com.campusconnect.CampusConnect.service.UniversityService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -104,17 +103,24 @@ public class UniversityController {
     }
 
     @GetMapping("/search/{universityId}")
-    public ResponseEntity<?> searchUserByEmail(@RequestParam("email") String searchEmail , @Valid @PathVariable ObjectId universityId) {
+    public ResponseEntity<?> searchUserByEmail(
+            @RequestParam("email") String searchEmail,
+            @PathVariable String universityId) {
         try {
-            UserDTO user = universityService.findUserByEmail(searchEmail,universityId);
+            ObjectId uniId = new ObjectId(universityId); // Convert manually
+            UserDTO user = universityService.findUserByEmail(searchEmail, uniId);
+
             if (user != null) {
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                return ResponseEntity.ok(user);
             } else {
-                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
+        } catch (IllegalArgumentException e) {  // Handle invalid ObjectId format
+            return ResponseEntity.badRequest().body("Invalid university ID format");
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
 }
 

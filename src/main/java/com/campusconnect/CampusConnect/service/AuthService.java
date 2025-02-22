@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,31 +51,36 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional
-    public void userSignUp(@Valid UserDTO userData) {
-        UserEntity userEntity = dtoHelper.UserDtoToEntityMapper(userData);
-        userEntity.setPassword(passwordEncoder.encode(userData.getPassword())); // Encrypt password
-        Optional<UniversityEntity> universityOptional = universityRepository.findById(userData.getUniversityId());
-        if (universityOptional.isPresent()) {
-            UniversityEntity university = universityOptional.get();
-            List<UserEntity> allStudents = university.getAllStudents();
-            if (allStudents == null) {
-                allStudents = new ArrayList<>();
-            }
-            allStudents.add(userEntity);
-            university.setAllStudents(allStudents);
-            userRepository.save(userEntity);
-            universityRepository.save(university);
-            redisService.removeCache(RedisKeys.LIST_OF_STUDENTS_OF.toString()+userData.getUniversityId());
-            emailService.sendMail(EmailType.WELCOME,new String[]{userData.getEmail()},userData.getUserName(),userData.getNameOfUniversity());
+    public void userSignUp(UserDTO userData) {
+        try{
+            UserEntity userEntity = dtoHelper.UserDtoToEntityMapper(userData);
+            userEntity.setPassword(passwordEncoder.encode(userData.getPassword())); // Encrypt password
+            Optional<UniversityEntity> universityOptional = universityRepository.findById(userData.getUniversityId());
+            if (universityOptional.isPresent()) {
+                UniversityEntity university = universityOptional.get();
+                List<UserEntity> allStudents = university.getAllStudents();
+                if (allStudents == null) {
+                    allStudents = new ArrayList<>();
+                }
+                allStudents.add(userEntity);
+                university.setAllStudents(allStudents);
+                userRepository.save(userEntity);
+                universityRepository.save(university);
+                redisService.removeCache(RedisKeys.LIST_OF_STUDENTS_OF.toString()+userData.getUniversityId());
+                emailService.sendMail(EmailType.WELCOME,new String[]{userData.getEmail()},userData.getUserName(),userData.getNameOfUniversity());
 
-            logger.info("User signed up successfully: {} in University ID: {}", userData.getEmail(), userData.getUniversityId());
-        } else {
-            logger.error(UNIVERSITY_NOT_FOUND, userData.getUniversityId());
-            throw new UniversityNotFoundException("University not found with ID: " + userData.getUniversityId());
+                logger.info("User signed up successfully: {} in University ID: {}", userData.getEmail(), userData.getUniversityId());
+            } else {
+                logger.error(UNIVERSITY_NOT_FOUND, userData.getUniversityId());
+                throw new UniversityNotFoundException("University not found with ID: " + userData.getUniversityId());
+            }
+        }
+        catch (Exception e){
+            throw new RuntimeException("Error occured"+e);
         }
     }
 
-    public UserLoginDto userLogin(@Valid LoginDTO userData) {
+    public UserLoginDto userLogin( LoginDTO userData) {
         Optional<UserEntity> user = userRepository.findByEmail(userData.getEmail());
         UserLoginDto loginResponse = new UserLoginDto();
 
@@ -100,7 +104,7 @@ public class AuthService implements UserDetailsService {
         return loginResponse;
     }
 
-    public UniversityLoginDto universityLogin(@Valid LoginDTO universityData) {
+    public UniversityLoginDto universityLogin( LoginDTO universityData) {
         Optional<UniversityEntity> university = universityRepository.findByEmail(universityData.getEmail());
         UniversityLoginDto loginResponse = new UniversityLoginDto();
 
@@ -123,7 +127,7 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional
-    public void universitySignUp(@Valid UniversityDTO universityData) {
+    public void universitySignUp( UniversityDTO universityData) {
         UniversityEntity universityEntity = dtoHelper.UniversityEntityToDtoMapper(universityData);
         universityEntity.setPassword(passwordEncoder.encode(universityData.getPassword()));
         universityRepository.save(universityEntity);

@@ -35,6 +35,7 @@ public class DtoHelperClass {
         userEntity.setBranch(dto.getBranch());
         userEntity.setCurrentCompany(dto.getCurrentCompany());
         userEntity.setPlacementStatement(dto.getPlacementStatement());
+        userEntity.setLeetCodeUserName(dto.getLeetCodeUserName());
         return userEntity;
     }
 

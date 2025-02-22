@@ -36,4 +36,7 @@ public class UserDTO implements CommonDTO {
 
     private String placementStatement;
 
+    private String leetCodeUserName;
+
+
 }
