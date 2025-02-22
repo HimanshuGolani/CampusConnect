@@ -67,7 +67,8 @@ public class UserService {
                 user.getCourse(),
                 user.getBranch(),
                 user.getPlacementStatement(),
-                user.getCurrentCompany()
+                user.getCurrentCompany(),
+                user.getLeetCodeUserName()
         );
 
         logger.info("Fetched profile for user ID: {} - Username: {}", userId, user.getUserName());

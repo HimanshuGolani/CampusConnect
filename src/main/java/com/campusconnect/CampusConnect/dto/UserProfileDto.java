@@ -18,8 +18,10 @@ public class UserProfileDto {
     private String branch;
     private String placementStatement;
     private String currentCompany;
+    private String leetCodeUserName;
 
-    public UserProfileDto(String email, String userName, ObjectId universityId, String universityName, String course, String branch, String placementStatement, String currentCompany) {
+
+    public UserProfileDto(String email, String userName, ObjectId universityId, String universityName, String course, String branch, String placementStatement, String currentCompany,String leetCodeUserName) {
         this.email = email;
         this.userName = userName;
         this.universityId = universityId;
@@ -28,6 +30,7 @@ public class UserProfileDto {
         this.branch = branch;
         this.placementStatement = placementStatement;
         this.currentCompany = currentCompany;
+        this.leetCodeUserName=leetCodeUserName;
     }
 }
 
