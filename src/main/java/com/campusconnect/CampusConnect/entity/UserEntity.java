@@ -59,15 +59,6 @@ public class UserEntity {
     @DBRef
     private List<PostEntity> posts = new ArrayList<>();
 
-    @DBRef
-    private List<Message> allChats = new ArrayList<>();
-
-    @DBRef
-    private List<UserEntity> friends = new ArrayList<>();
-
-    @DBRef
-    private List<UserEntity> friendRequest = new ArrayList<>();
-
     private String leetCodeUserName;
 
     @Override
