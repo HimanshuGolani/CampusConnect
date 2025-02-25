@@ -162,7 +162,7 @@ public class UniversityService {
                 university.getAllStudents().size(),
                 university.getOfficerHead(),
                 university.getEstablishedIn(),
-                university.getCompanyList().size()
+                university.getNoOfCompanyVisit()
         );
     }
 
