@@ -102,6 +102,21 @@ public class UniversityController {
         }
     }
 
+
+    @DeleteMapping("/remove-company/{companyId}/{universityId}")
+    public ResponseEntity<Void> removeCompanyById(
+            @PathVariable ObjectId companyId,
+            @PathVariable ObjectId universityId
+    ){
+       try{
+           universityService.removeCompanyFromUniversity(universityId,companyId);
+           return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+       }
+       catch (Exception e){
+           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+       }
+    }
+
     @GetMapping("/search/{universityId}")
     public ResponseEntity<?> searchUserByEmail(
             @RequestParam("email") String searchEmail,

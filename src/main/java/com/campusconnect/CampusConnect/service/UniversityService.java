@@ -177,4 +177,36 @@ public class UniversityService {
             return null;
         }
     }
+
+    public void removeCompanyFromUniversity(ObjectId universityId, ObjectId companyId) {
+        logger.info("Entered the remove company from university function.");
+
+        Optional<UniversityEntity> universityOptional = universityRepository.findById(universityId);
+        Optional<CompanyEntity> companyOptional = companyRepository.findById(companyId);
+
+        if (universityOptional.isEmpty()) {
+            logger.error("University not found with id: {}", universityId);
+            return;
+        }
+
+        if (companyOptional.isEmpty()) {
+            logger.error("Company not found with id: {}", companyId);
+            return;
+        }
+
+        UniversityEntity university = universityOptional.get();
+        CompanyEntity company = companyOptional.get();
+
+        // Ensure the company is actually in the university's list
+        if (university.getCompanyList().contains(company)) {
+            university.getCompanyList().remove(company);
+            universityRepository.save(university);  // Update university first
+            companyRepository.deleteById(companyId);  // Then delete the company
+            logger.info("Successfully removed company with id {} from university {}", companyId, universityId);
+        } else {
+            logger.warn("Company with id {} not found in university {}", companyId, universityId);
+        }
+    }
+
+
 }
